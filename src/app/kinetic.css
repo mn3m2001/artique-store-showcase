@@ -1,0 +1,842 @@
+/* ==========================================================================
+   ARTIQUE KINETIC EDITION — STYLESHEET (INSPIRED BY WPKOI CREATIVE SHOWCASE)
+   ========================================================================== */
+
+:root {
+  --kinetic-bg: #151515;
+  --kinetic-surface: #1E1E1E;
+  --kinetic-surface-card: #222222;
+  --kinetic-border: rgba(255, 255, 255, 0.12);
+  --kinetic-border-strong: rgba(255, 255, 255, 0.24);
+
+  --kinetic-text: #FFFFFF;
+  --kinetic-text-muted: #A0A0A0;
+  --kinetic-text-dim: #707070;
+
+  /* WPKoi Iconic Kinetic Palette */
+  --kinetic-red: #FF3B1F;
+  --kinetic-orange: #FF5E29;
+  --kinetic-yellow: #FFCC19;
+  --kinetic-pink: #FFB6EF;
+  --kinetic-green: #55DC7D;
+  --kinetic-terracotta: #E26A37;
+  --kinetic-cream: #FAF6EE;
+}
+
+/* Base Body Dark Mode for Kinetic Edition */
+.kinetic-theme {
+  background-color: var(--kinetic-bg);
+  color: var(--kinetic-text);
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   1. DIGITAL PRELOADER (WPKOI PT-GRID & RULER SYSTEM)
+   ========================================================================== */
+
+#page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  pointer-events: none;
+  overflow: hidden;
+  background: var(--kinetic-bg);
+  transition: opacity 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+}
+
+#page-transition.is-finished {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pt-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  gap: 0;
+}
+
+@media (min-width: 1024px) {
+  .pt-grid {
+    grid-template-columns: repeat(20, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+  }
+}
+
+.ptc {
+  position: relative;
+  background: #151515;
+  transform-origin: center;
+  overflow: hidden;
+  backface-visibility: hidden;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.ptc.is-receding {
+  transform: scale(0);
+  opacity: 0;
+}
+
+.pt-preloader {
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.pt-title {
+  position: absolute;
+  top: 2.5vw;
+  left: 3vw;
+  font-size: clamp(14px, 1.6vw, 24px);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding-left: 1.8vw;
+  margin: 0;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+}
+
+[dir="rtl"] .pt-title {
+  left: auto;
+  right: 3vw;
+  padding-left: 0;
+  padding-right: 1.8vw;
+}
+
+.pt-title-mark {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0.9vw;
+  height: 0.9vw;
+  min-width: 8px;
+  min-height: 8px;
+  background: var(--kinetic-red);
+  transform: translateY(-50%);
+  box-shadow: 0 0 12px rgba(255, 59, 31, 0.8);
+}
+
+[dir="rtl"] .pt-title-mark {
+  left: auto;
+  right: 0;
+}
+
+.pt-brand-stage {
+  position: absolute;
+  top: 2.5vw;
+  right: 3vw;
+  width: clamp(70px, 9vw, 130px);
+  height: clamp(50px, 6vw, 90px);
+  transform: rotate(-4deg);
+  pointer-events: none;
+}
+
+[dir="rtl"] .pt-brand-stage {
+  right: auto;
+  left: 3vw;
+  transform: rotate(4deg);
+}
+
+.pt-brand-accent {
+  position: absolute;
+  inset: 0;
+  background: var(--kinetic-red);
+  transform: rotate(-6deg) translate(8%, 8%);
+  border-radius: 4px;
+}
+
+.pt-brand-card {
+  position: absolute;
+  inset: 0;
+  background: #FAF7F2;
+  padding: 4px;
+  border-radius: 4px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #151515;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.pt-loader {
+  position: absolute;
+  bottom: 3vw;
+  left: 3vw;
+  right: 3vw;
+  display: flex;
+  align-items: flex-end;
+  gap: 2vw;
+}
+
+.pt-progress {
+  font-family: var(--font-latin), monospace;
+  font-size: clamp(38px, 9vw, 120px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  line-height: 0.8;
+  min-width: 2.5ch;
+}
+
+.pt-ruler {
+  position: relative;
+  flex: 1;
+  height: clamp(24px, 2.5vw, 40px);
+  display: flex;
+  align-items: flex-end;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 0.5vw;
+}
+
+.pt-ticks-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.pt-tick {
+  width: 1px;
+  height: 8px;
+  background: #FFFFFF;
+  opacity: 0.25;
+}
+
+.pt-tick.major {
+  height: 16px;
+  opacity: 0.7;
+}
+
+.pt-marker {
+  position: absolute;
+  bottom: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--kinetic-red);
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px rgba(255, 59, 31, 0.9);
+  transition: left 0.1s linear;
+}
+
+.pt-skip-btn {
+  position: absolute;
+  bottom: 1.5vw;
+  right: 3vw;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pt-skip-btn:hover {
+  background: var(--kinetic-red);
+  border-color: var(--kinetic-red);
+}
+
+/* ==========================================================================
+   2. CUSTOM INTERACTIVE CURSOR (WPKOI MAGNETIC CURSOR)
+   ========================================================================== */
+
+.kinetic-cursor-wrapper {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2147483647;
+}
+
+@media (max-width: 768px), (pointer: coarse) {
+  .kinetic-cursor-wrapper {
+    display: none !important;
+  }
+}
+
+.k-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--kinetic-red);
+  box-shadow: 0 0 14px rgba(255, 59, 31, 0.9);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+              height 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+              background 0.3s ease,
+              border-radius 0.3s ease,
+              opacity 0.2s ease;
+  mix-blend-mode: normal;
+}
+
+.k-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+              height 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+              border-color 0.3s ease,
+              opacity 0.2s ease;
+}
+
+/* Cursor View Mode */
+.k-cursor-dot.is-view {
+  width: 100px;
+  height: 32px;
+  border-radius: 9999px;
+  background: var(--kinetic-red);
+  box-shadow: 0 8px 24px rgba(255, 59, 31, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.k-cursor-badge-text {
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Cursor Rotating Badge Mode */
+.k-cursor-dot.is-hover-ring {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255, 204, 25, 0.15);
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--kinetic-yellow);
+  box-shadow: 0 0 30px rgba(255, 204, 25, 0.3);
+}
+
+.k-cursor-rotator {
+  position: absolute;
+  inset: 0;
+  animation: kRotateText 12s linear infinite;
+}
+
+@keyframes kRotateText {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   3. PROCEDURAL FILM GRAIN CANVAS OVERLAY
+   ========================================================================== */
+
+#kinetic-grain-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0.055;
+  mix-blend-mode: screen;
+}
+
+/* ==========================================================================
+   4. KINETIC TICKER / MARQUEE (RUNNING TEXT BANNERS)
+   ========================================================================== */
+
+.kinetic-marquee-wrap {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  user-select: none;
+  position: relative;
+  z-index: 20;
+}
+
+.kinetic-marquee-yellow {
+  background-color: var(--kinetic-yellow);
+  color: #151515;
+  border-top: 2px solid #151515;
+  border-bottom: 2px solid #151515;
+  padding: 0.6vw 0;
+  font-size: clamp(13px, 1.4vw, 20px);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.kinetic-marquee-dark {
+  background-color: #1B1B1B;
+  color: rgba(255, 255, 255, 0.85);
+  border-top: 1px solid var(--kinetic-border);
+  border-bottom: 1px solid var(--kinetic-border);
+  padding: 0.8vw 0;
+  font-size: clamp(14px, 1.8vw, 26px);
+  font-weight: 700;
+}
+
+.kinetic-marquee-track {
+  display: flex;
+  flex-shrink: 0;
+  animation: kMarqueeScroll 28s linear infinite;
+  gap: 2rem;
+}
+
+.kinetic-marquee-track.reverse {
+  animation: kMarqueeScrollRev 32s linear infinite;
+}
+
+@keyframes kMarqueeScroll {
+  from { transform: translateX(0%); }
+  to { transform: translateX(-100%); }
+}
+
+@keyframes kMarqueeScrollRev {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0%); }
+}
+
+[dir="rtl"] .kinetic-marquee-track {
+  animation: kMarqueeScrollRTL 28s linear infinite;
+}
+
+[dir="rtl"] .kinetic-marquee-track.reverse {
+  animation: kMarqueeScrollRTLRev 32s linear infinite;
+}
+
+@keyframes kMarqueeScrollRTL {
+  from { transform: translateX(0%); }
+  to { transform: translateX(100%); }
+}
+
+@keyframes kMarqueeScrollRTLRev {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0%); }
+}
+
+/* ==========================================================================
+   5. HERO KINETIC TYPOGRAPHY & PINNED SCROLL SCENE
+   ========================================================================== */
+
+.kinetic-hero-track {
+  position: relative;
+  height: 340vh; /* Pinned scroll journey */
+  background-color: var(--kinetic-bg);
+}
+
+.kinetic-hero-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.kinetic-hero-webgl-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.kinetic-hero-content {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5vw 4vw 3vw;
+  pointer-events: none;
+}
+
+.kinetic-hero-content a,
+.kinetic-hero-content button {
+  pointer-events: auto;
+}
+
+.k-hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: clamp(11px, 1.1vw, 16px);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  color: var(--kinetic-text-muted);
+}
+
+.k-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--kinetic-border);
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  color: var(--kinetic-cream);
+}
+
+.k-hero-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--kinetic-red);
+  box-shadow: 0 0 8px var(--kinetic-red);
+  animation: kPulse 2s infinite ease-in-out;
+}
+
+@keyframes kPulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+.k-hero-center {
+  max-width: 90vw;
+  margin: auto 0;
+}
+
+.k-hero-giant-title {
+  font-size: clamp(48px, 10.5vw, 150px);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.k-hero-giant-title span.accent-red {
+  color: var(--kinetic-red);
+}
+
+.k-hero-giant-title span.accent-yellow {
+  color: var(--kinetic-yellow);
+}
+
+.k-hero-sub {
+  margin-top: 1.5vw;
+  font-size: clamp(15px, 1.8vw, 26px);
+  color: var(--kinetic-text-muted);
+  max-width: 38ch;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.k-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5vw;
+  margin-top: 2vw;
+}
+
+.k-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--kinetic-red);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: clamp(13px, 1.2vw, 18px);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: clamp(10px, 1.1vw, 18px) clamp(20px, 2.2vw, 36px);
+  border-radius: 9999px;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 10px 30px rgba(255, 59, 31, 0.4);
+}
+
+.k-btn-primary:hover {
+  background: #FF5136;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(255, 59, 31, 0.6);
+}
+
+.k-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: #FFFFFF;
+  border: 1px solid var(--kinetic-border);
+  font-weight: 600;
+  font-size: clamp(13px, 1.2vw, 18px);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: clamp(10px, 1.1vw, 18px) clamp(18px, 1.8vw, 30px);
+  border-radius: 9999px;
+  transition: all 0.25s ease;
+}
+
+.k-btn-secondary:hover {
+  border-color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.k-hero-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid var(--kinetic-border);
+  padding-top: 1.5vw;
+}
+
+.k-scroll-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--kinetic-text-muted);
+}
+
+.k-chapters-stepper {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--kinetic-text-dim);
+}
+
+.k-chapters-stepper .active {
+  color: var(--kinetic-yellow);
+}
+
+/* ==========================================================================
+   6. WPKOI SHOWCASE CARDS (VERTICAL AUTO-PAN PREVIEWS)
+   ========================================================================== */
+
+.kinetic-showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2.5vw;
+}
+
+@media (min-width: 640px) {
+  .kinetic-showcase-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .kinetic-showcase-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.k-showcase-card {
+  position: relative;
+  background: var(--kinetic-surface);
+  border: 1px solid var(--kinetic-border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.k-showcase-card:hover {
+  border-color: var(--kinetic-red);
+  transform: translateY(-6px);
+}
+
+.k-card-header {
+  padding: 1.2rem 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid var(--kinetic-border);
+}
+
+.k-card-title {
+  font-size: clamp(16px, 1.4vw, 22px);
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.k-card-prices {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-latin), monospace;
+  font-weight: 700;
+  font-size: clamp(14px, 1.2vw, 18px);
+}
+
+.k-card-price-current {
+  color: var(--kinetic-yellow);
+}
+
+.k-card-price-old {
+  color: var(--kinetic-text-dim);
+  text-decoration: line-through;
+  font-size: 0.85em;
+}
+
+/* The Signature WPKoi Long Preview Window */
+.k-card-preview-viewport {
+  position: relative;
+  width: 100%;
+  height: clamp(260px, 28vw, 380px);
+  overflow: hidden;
+  background: #111111;
+}
+
+.k-card-preview-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  object-fit: cover;
+  transition: transform 3.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.k-showcase-card:hover .k-card-preview-img {
+  transform: translateY(-20%);
+}
+
+.k-card-badges {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  z-index: 5;
+}
+
+[dir="rtl"] .k-card-badges {
+  left: auto;
+  right: 1rem;
+}
+
+.k-card-badge {
+  background: rgba(21, 21, 21, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--kinetic-border);
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+}
+
+.k-card-footer {
+  padding: 1rem 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--kinetic-border);
+  background: rgba(21, 21, 21, 0.5);
+}
+
+.k-card-tags {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.k-tag-scramble {
+  font-family: var(--font-latin), monospace;
+  font-size: 11px;
+  color: var(--kinetic-text-muted);
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+}
+
+.k-tag-scramble:hover {
+  color: var(--kinetic-yellow);
+}
+
+.k-card-explore-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #FFFFFF;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.k-card-explore-link:hover {
+  color: var(--kinetic-red);
+  transform: translateX(3px);
+}
+
+[dir="rtl"] .k-card-explore-link:hover {
+  transform: translateX(-3px);
+}
+
+/* ==========================================================================
+   7. FIXED LATITUDE/LONGITUDE METRIC BAR (WPKOI FIXED DATAS)
+   ========================================================================== */
+
+.kinetic-fixed-datas {
+  position: fixed;
+  right: 1.5vw;
+  bottom: 8vw;
+  z-index: 50;
+  transform: rotate(90deg);
+  transform-origin: bottom right;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--font-latin), monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+[dir="rtl"] .kinetic-fixed-datas {
+  right: auto;
+  left: 1.5vw;
+  transform: rotate(-90deg);
+  transform-origin: bottom left;
+}
+
+@media (max-width: 1024px) {
+  .kinetic-fixed-datas {
+    display: none;
+  }
+}

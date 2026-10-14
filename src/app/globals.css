@@ -1,0 +1,127 @@
+@import "tailwindcss";
+@import "./atelier.css";
+
+:root {
+  --font-arabic: var(--font-cairo), system-ui, -apple-system, sans-serif;
+  --font-latin: var(--font-jakarta), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, serif;
+
+  /* Artique Warm Craft Palette */
+  --bg-main: #FAF7F2;
+  --bg-surface: #FFFFFF;
+  --bg-card: #FDFBF8;
+  --bg-subtle: #F3ECE1;
+  --bg-muted: #EBE2D3;
+
+  --border-subtle: #E8DED1;
+  --border-focus: #C8692F;
+
+  --color-ink: #291D11;
+  --color-ink-muted: #6E5F50;
+  --color-ink-light: #9C8B7B;
+
+  --color-terracotta: #C8692F;
+  --color-terracotta-dark: #A9511F;
+  --color-terracotta-light: #FBEFE7;
+
+  --color-gold: #B8862B;
+  --color-gold-light: #FBF4E4;
+
+  --color-olive: #7A7452;
+  --color-olive-light: #F2F0E6;
+
+  --color-rose: #D98A93;
+  --color-rose-light: #FDF2F3;
+
+  --shadow-warm-sm: 0 1px 3px rgba(41, 29, 17, 0.04), 0 1px 2px rgba(41, 29, 17, 0.02);
+  --shadow-warm-md: 0 4px 12px -2px rgba(41, 29, 17, 0.06), 0 2px 6px -1px rgba(41, 29, 17, 0.03);
+  --shadow-warm-lg: 0 12px 28px -6px rgba(41, 29, 17, 0.08), 0 4px 12px -2px rgba(41, 29, 17, 0.04);
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--color-ink);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* RTL / LTR font assignments */
+[dir="rtl"] {
+  font-family: var(--font-arabic);
+}
+
+[dir="ltr"] {
+  font-family: var(--font-latin);
+}
+
+/* Custom craft scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F3ECE1;
+}
+::-webkit-scrollbar-thumb {
+  background: #D9CBB7;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #BFAEA0;
+}
+
+/* Focus styles for keyboard accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 2px;
+}
+
+/* Card hover elevation */
+.craft-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-warm-sm);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.craft-card:hover {
+  box-shadow: var(--shadow-warm-md);
+  border-color: #DFD3C3;
+  transform: perspective(1000px) translateY(-6px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+}
+
+.craft-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  background: radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(255,255,255,.2), transparent 55%);
+  transition: opacity .3s ease;
+}
+.craft-card:hover::after { opacity: 1; }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+  .store-hero-copy { animation: craft-arrive .8s cubic-bezier(.2,.75,.2,1) both; }
+  @keyframes craft-arrive {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .craft-card:hover {
+    transform: none;
+  }
+}
