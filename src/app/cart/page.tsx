@@ -19,7 +19,7 @@ export default function CartPage() {
   const { items, updateQuantity, removeItem, clearCart, subtotal, isHydrated } = useCart();
 
   return (
-    <div className="atelier-purchase flex-1 flex flex-col min-h-screen bg-[#FAF7F2]">
+    <div className="storefront-shell atelier-purchase flex-1 flex flex-col min-h-screen bg-[#FAF7F2]">
       <Header />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-8">
@@ -33,20 +33,20 @@ export default function CartPage() {
         </div>
 
         {!isHydrated ? (
-          <div className="bg-white rounded-3xl p-8 sm:p-12 border border-[#E8DED1] shadow-warm-sm animate-pulse space-y-6 max-w-4xl mx-auto">
+          <div className="liquid-card bg-white rounded-3xl p-8 sm:p-12 border border-[#E8DED1] shadow-warm-sm animate-pulse space-y-6 max-w-4xl mx-auto">
             <div className="flex justify-between items-center pb-4 border-b border-[#F0E6D8]">
               <div className="h-5 w-32 bg-[#FAF7F2] rounded-xl" />
               <div className="h-4 w-20 bg-[#FAF7F2] rounded-lg" />
             </div>
             <div className="space-y-4">
-              <div className="h-24 bg-[#FAF7F2] rounded-2xl" />
-              <div className="h-24 bg-[#FAF7F2] rounded-2xl" />
+              <div className="liquid-card h-24 bg-[#FAF7F2] rounded-2xl" />
+              <div className="liquid-card h-24 bg-[#FAF7F2] rounded-2xl" />
             </div>
           </div>
         ) : items.length > 0 ? (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             {/* Items List */}
-            <div className="lg:col-span-8 bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] shadow-warm-sm space-y-6">
+            <div className="liquid-card lg:col-span-8 bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] shadow-warm-sm space-y-6">
               <div className="flex items-center justify-between pb-4 border-b border-[#F0E6D8]">
                 <span className="text-xs font-bold text-[#8C7A6B]">
                   {items.length} {items.length > 1 ? t.cart.items : t.cart.item}
@@ -136,7 +136,7 @@ export default function CartPage() {
             </div>
 
             {/* Order Summary Sidebar */}
-            <div className="lg:col-span-4 bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] shadow-warm-sm space-y-6">
+            <div className="liquid-card lg:col-span-4 bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] shadow-warm-sm space-y-6">
               <h3 className="font-serif text-lg font-bold text-[#291D11] pb-3 border-b border-[#F0E6D8]">
                 {t.checkout.summary}
               </h3>
@@ -163,7 +163,7 @@ export default function CartPage() {
               </div>
 
               {/* Damietta Delivery Notice */}
-              <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-[#E8DED1] text-xs text-[#7A7452] space-y-1">
+              <div className="liquid-card bg-[#FAF7F2] p-4 rounded-2xl border border-[#E8DED1] text-xs text-[#7A7452] space-y-1">
                 <div className="flex items-center gap-1.5 font-bold text-[#291D11]">
                   <MapPin className="w-3.5 h-3.5 text-[#C8692F]" />
                   <span>{locale === "ar" ? "توصيل دمياط" : "Damietta delivery"}</span>
@@ -185,7 +185,7 @@ export default function CartPage() {
             </div>
           </div>
         ) : (
-          <div className="bg-white rounded-3xl p-8 sm:p-16 text-center border border-[#E8DED1] space-y-4 max-w-xl mx-auto shadow-warm-sm">
+          <div className="liquid-card bg-white rounded-3xl p-8 sm:p-16 text-center border border-[#E8DED1] space-y-4 max-w-xl mx-auto shadow-warm-sm">
             <div className="w-16 h-16 rounded-full bg-[#F3ECE1] mx-auto flex items-center justify-center text-[#C8692F]">
               <ShoppingBag className="w-8 h-8" />
             </div>

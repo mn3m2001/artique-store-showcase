@@ -1,4 +1,7 @@
-.atelier-home { --atelier-ink:#33291f; --atelier-muted:#81705f; --atelier-line:#dcd0be; color:var(--atelier-ink); background:#f4efe6; }
+.atelier-home { --atelier-ink:#33291f; --atelier-muted:#81705f; --atelier-line:#dcd0be; color:var(--atelier-ink); background:radial-gradient(ellipse at 16% 2%,rgba(246,179,195,.13),transparent 36%),radial-gradient(ellipse at 84% 14%,rgba(232,200,143,.16),transparent 32%),#faf7f2; }
+.atelier-photo-tour { width:100%; flex:none; overflow:hidden; background:#faf7f2; }
+.atelier-photo-tour-frame { display:block; width:100%; height:calc(100svh - 80px); min-height:620px; border:0; background:#faf7f2; }
+@media (max-width:700px) { .atelier-photo-tour-frame { height:calc(100svh - 152px - env(safe-area-inset-bottom,0px)); min-height:min(620px,calc(100svh - 152px - env(safe-area-inset-bottom,0px))); } }
 .mobile-store-nav { display:none; }
 .admin-shell main h2 { font-family:var(--font-arabic); font-size:22px; font-weight:600; line-height:1.6; }
 .admin-shell main button:disabled { opacity:.55; cursor:default; }
@@ -66,12 +69,13 @@
 .atelier-more-categories a { display:flex; align-items:center; gap:10px; font-size:11px; }
 .atelier-shop { padding-top:20px; }
 .atelier-product-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:32px; perspective:1200px; }
-.atelier-home .craft-card,.atelier-catalog .craft-card { border:1px solid #e2d6c6; border-radius:22px; background:#fffdf8; box-shadow:0 7px 22px #62452708; transition:transform .18s ease-out,box-shadow .35s ease,border-color .3s; }
+.atelier-home .craft-card,.atelier-catalog .craft-card { position:relative; isolation:isolate; transform-style:preserve-3d; border:1px solid rgba(255,255,255,.76); border-radius:22px; background:linear-gradient(145deg,rgba(255,255,255,.68),rgba(255,250,242,.48) 56%,rgba(246,229,222,.42)); backdrop-filter:blur(18px) saturate(1.35); -webkit-backdrop-filter:blur(18px) saturate(1.35); box-shadow:inset 0 1px 0 rgba(255,255,255,.82),0 12px 32px rgba(98,69,39,.09); transition:transform .18s ease-out,box-shadow .35s ease,border-color .3s,background .35s; }
 .atelier-home .craft-card .craft-card-content,.atelier-catalog .craft-card .craft-card-content { padding:22px; }
-.atelier-home .craft-card:hover,.atelier-catalog .craft-card:hover,.atelier-home .craft-card:focus-within,.atelier-catalog .craft-card:focus-within { box-shadow:0 24px 48px -12px #77543830; border-color:#bc9875; }
+.atelier-home .craft-card:hover,.atelier-catalog .craft-card:hover,.atelier-home .craft-card:focus-within,.atelier-catalog .craft-card:focus-within { box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 28px 55px -16px rgba(119,84,56,.35); border-color:rgba(255,255,255,.94); background:linear-gradient(145deg,rgba(255,255,255,.78),rgba(255,250,242,.58) 56%,rgba(246,229,222,.5)); }
 .craft-card-media { border-bottom:1px solid #eee5d8; }
-.craft-card-media { background:#f1e9dc; }
-.craft-card-media img { object-fit:contain; padding:10px; }
+.craft-card-media { background:linear-gradient(145deg,rgba(255,255,255,.38),rgba(239,226,208,.55)); transform:translateZ(12px); }
+.craft-card-media img { object-fit:contain; padding:10px; transition:transform .5s cubic-bezier(.2,.75,.2,1); }
+.craft-card:hover .craft-card-media img,.craft-card:focus-within .craft-card-media img { transform:translateZ(18px) scale(1.035); }
 .craft-quick-trigger { position:relative; z-index:3; margin:-48px 16px 12px; padding:9px 16px; border:1px solid #d8c5ac; border-radius:10px; font-size:11px; color:#60472f; background:#fffaf0ed; backdrop-filter:blur(6px); opacity:0; transform:translateY(6px); transition:opacity .25s,transform .25s; }
 .craft-card:hover .craft-quick-trigger,.craft-card:focus-within .craft-quick-trigger { opacity:1; transform:translateY(0); }
 .product-quick-backdrop { position:fixed; inset:0; z-index:110; display:grid; place-items:center; background:#221b13b8; backdrop-filter:blur(8px); padding:24px; }

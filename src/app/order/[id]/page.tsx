@@ -38,7 +38,7 @@ export default async function OrderDetailPage({ params }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] py-8 sm:py-12">
+    <div className="storefront-shell min-h-screen bg-[#FAF7F2] py-8 sm:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <OrderClient order={{ ...order, internal_notes: null, idempotency_key: undefined, history: order.history?.filter((entry) => entry.created_by === "customer" || entry.created_by === "system"), proofs: order.proofs?.map((proof) => ({ ...proof, review_note: undefined })) }} settings={settings} />
       </div>

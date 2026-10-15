@@ -52,7 +52,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   const isDraftPreview = product.status !== "published" && isAdmin;
 
   return (
-    <div className="flex-1 flex flex-col min-h-screen bg-[#FAF7F2]">
+    <div className="storefront-shell flex-1 flex flex-col min-h-screen bg-[#FAF7F2]">
       <Header isDemo={isDemo} />
 
       {/* Admin Draft Preview Warning Banner */}

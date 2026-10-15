@@ -140,7 +140,7 @@ export function CheckoutClient({
 
   if (isHydrated && items.length === 0) {
     return (
-      <div className="bg-white rounded-3xl p-12 text-center border border-[#E8DED1] space-y-4 max-w-lg mx-auto shadow-warm-sm">
+      <div className="liquid-card bg-white rounded-3xl p-12 text-center border border-[#E8DED1] space-y-4 max-w-lg mx-auto shadow-warm-sm">
         <h3 className="font-serif text-2xl font-bold text-[#291D11]">{t.cart.empty}</h3>
         <p className="text-xs text-[#6E5F50]">
           {locale === "ar"
@@ -160,7 +160,7 @@ export function CheckoutClient({
   return (
     <div className="space-y-6">
       {/* Checkout Top Header Bar with Artique Brand & Back to Cart Link */}
-      <div className="bg-white rounded-3xl p-4 sm:p-6 border border-[#E8DED1] shadow-warm-xs flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="liquid-card bg-white rounded-3xl p-4 sm:p-6 border border-[#E8DED1] shadow-warm-xs flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3.5">
           <div className="relative w-12 h-12 rounded-full overflow-hidden border border-[#C8692F]/20 bg-[#FAF7F2] shrink-0">
             <Image
@@ -182,7 +182,7 @@ export function CheckoutClient({
 
         <Link
           href="/cart"
-          className="inline-flex items-center gap-2 text-xs font-semibold text-[#6E5F50] hover:text-[#C8692F] bg-[#FAF7F2] hover:bg-[#F0EAE1] border border-[#E8DED1] px-4 py-2.5 rounded-2xl transition-all"
+          className="liquid-card inline-flex items-center gap-2 text-xs font-semibold text-[#6E5F50] hover:text-[#C8692F] bg-[#FAF7F2] hover:bg-[#F0EAE1] border border-[#E8DED1] px-4 py-2.5 rounded-2xl transition-all"
         >
           {locale === "ar" ? <ArrowRight className="w-4 h-4" /> : <ArrowLeft className="w-4 h-4" />}
           <span>{locale === "ar" ? "العودة إلى سلة التسوق" : "Back to Shopping Cart"}</span>
@@ -204,7 +204,7 @@ export function CheckoutClient({
         )}
 
         {/* Section 1: Contact Details */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] shadow-warm-sm space-y-5">
+        <div className="liquid-card bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] shadow-warm-sm space-y-5">
           <div className="flex items-center gap-2 pb-3 border-b border-[#F0E6D8]">
             <User className="w-5 h-5 text-[#C8692F]" />
             <h2 className="font-serif text-lg font-bold text-[#291D11]">
@@ -268,7 +268,7 @@ export function CheckoutClient({
         </div>
 
         {/* Section 2: Damietta Delivery Area & Address */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] shadow-warm-sm space-y-5">
+        <div className="liquid-card bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] shadow-warm-sm space-y-5">
           <div className="flex items-center gap-2 pb-3 border-b border-[#F0E6D8]">
             <MapPin className="w-5 h-5 text-[#C8692F]" />
             <h2 className="font-serif text-lg font-bold text-[#291D11]">
@@ -339,13 +339,13 @@ export function CheckoutClient({
         </div>
 
         {/* Section 3: Payment Method Selection */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] space-y-4">
+        <div className="liquid-card bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] space-y-4">
           <h2 className="font-serif text-lg font-bold">{locale === "ar" ? "هدية لشخص مميز؟" : "A gift for someone special?"}</h2>
           <label className="block text-xs font-semibold">{locale === "ar" ? "رسالة الهدية (اختياري)" : "Gift message (optional)"}<textarea rows={2} maxLength={300} value={giftMessage} onChange={(event) => setGiftMessage(event.target.value)} className="mt-2 w-full border border-[#E0D3C1] rounded-xl p-3" placeholder={locale === "ar" ? "اكتب الرسالة التي تحب أن تصل مع هديتك…" : "Write a message for your gift…"} /></label>
           {settings.gift_wrap_available && <label className="flex gap-2 items-center text-xs"><input type="checkbox" checked={giftWrapping} onChange={(event) => setGiftWrapping(event.target.checked)} />{locale === "ar" ? "أرغب في تغليف هدية — التفاصيل والتكلفة بعد تأكيد المتجر" : "Request gift wrapping — details and cost confirmed by the shop"}</label>}
           <p className="text-[11px] text-[#8A7968]">{locale === "ar" ? "أي تجهيز إضافي يتم تأكيده معك قبل التنفيذ، ولا تُضاف رسوم تلقائيًا هنا." : "Additional preparation is confirmed with you before execution; no extra charge is added automatically here."}</p>
         </div>
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] shadow-warm-sm space-y-5">
+        <div className="liquid-card bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] shadow-warm-sm space-y-5">
           <div className="flex items-center gap-2 pb-3 border-b border-[#F0E6D8]">
             <CreditCard className="w-5 h-5 text-[#C8692F]" />
             <h2 className="font-serif text-lg font-bold text-[#291D11]">
@@ -356,7 +356,7 @@ export function CheckoutClient({
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {/* InstaPay */}
             <label
-              className={`p-4 rounded-2xl border-2 flex flex-col justify-between gap-3 transition-all ${
+              className={`liquid-option p-4 rounded-2xl border-2 flex flex-col justify-between gap-3 transition-all ${
                 !isInstaPayConfigured
                   ? "border-[#E8DED1] bg-stone-50 opacity-60 cursor-not-allowed"
                   : paymentMethod === "instapay"
@@ -388,7 +388,7 @@ export function CheckoutClient({
 
             {/* Vodafone Cash */}
             <label
-              className={`p-4 rounded-2xl border-2 flex flex-col justify-between gap-3 transition-all ${
+              className={`liquid-option p-4 rounded-2xl border-2 flex flex-col justify-between gap-3 transition-all ${
                 !isVodafoneCashConfigured
                   ? "border-[#E8DED1] bg-stone-50 opacity-60 cursor-not-allowed"
                   : paymentMethod === "vodafone_cash"
@@ -420,7 +420,7 @@ export function CheckoutClient({
 
             {/* COD */}
             <label
-              className={`p-4 rounded-2xl border-2 cursor-pointer flex flex-col justify-between gap-3 transition-all ${
+              className={`liquid-option p-4 rounded-2xl border-2 cursor-pointer flex flex-col justify-between gap-3 transition-all ${
                 paymentMethod === "cod"
                   ? "border-[#C8692F] bg-[#FAF7F2] shadow-xs"
                   : "border-[#E8DED1] bg-white hover:border-[#D9CBB7]"
@@ -443,7 +443,7 @@ export function CheckoutClient({
           </div>
 
           {/* Payment Method Details Box with Copy Buttons */}
-          <div className="p-4 bg-[#FAF7F2] rounded-2xl border border-[#E0D3C1] text-xs text-[#6E5F50] space-y-3">
+          <div className="liquid-card p-4 bg-[#FAF7F2] rounded-2xl border border-[#E0D3C1] text-xs text-[#6E5F50] space-y-3">
             {paymentMethod === "instapay" && (
               <>
                 <div className="flex items-center justify-between">
@@ -549,7 +549,7 @@ export function CheckoutClient({
       </div>
 
       {/* 2. Order Review & Final Total Sidebar */}
-      <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] shadow-warm-sm space-y-6 sticky top-28">
+      <div className="liquid-card lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] shadow-warm-sm space-y-6 sticky top-28">
         <div className="flex items-center justify-between pb-3 border-b border-[#F0E6D8]">
           <h3 className="font-serif text-lg font-bold text-[#291D11]">
             {t.checkout.summary}

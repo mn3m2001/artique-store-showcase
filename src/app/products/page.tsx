@@ -20,7 +20,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
   const products = await db.getProducts({ status: "published" });
 
   return (
-    <div className="flex-1 flex flex-col min-h-screen bg-[#FAF7F2]">
+    <div className="storefront-shell flex-1 flex flex-col min-h-screen bg-[#FAF7F2]">
       <Header isDemo={isDemo} />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-8">

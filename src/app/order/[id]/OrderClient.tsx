@@ -265,7 +265,7 @@ Payment Method: ${
       </div>
 
       {/* Main Order Header Card */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] shadow-warm-sm text-center relative overflow-hidden">
+      <div className="liquid-card bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] shadow-warm-sm text-center relative overflow-hidden">
         <div className="absolute top-0 right-0 left-0 h-2 bg-gradient-to-r from-[#C8692F] via-[#B8862B] to-[#7A7452]" />
 
         <div className="w-16 h-16 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto mb-4">
@@ -282,7 +282,7 @@ Payment Method: ${
         </p>
 
         {/* Order Reference Badge */}
-        <div className="mt-6 inline-flex flex-col sm:flex-row items-center gap-2 sm:gap-4 bg-[#FAF7F2] px-6 py-3 rounded-2xl border border-[#E8DED1]">
+        <div className="liquid-card mt-6 inline-flex flex-col sm:flex-row items-center gap-2 sm:gap-4 bg-[#FAF7F2] px-6 py-3 rounded-2xl border border-[#E8DED1]">
           <span className="text-xs text-[#8A7968] font-medium">
             {isAr ? "رقم الطلب المرجعي:" : "Order Reference:"}
           </span>
@@ -336,7 +336,7 @@ Payment Method: ${
       </div>
 
       {/* Communications / Contact Channels (Instagram & WhatsApp) */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] shadow-warm-sm space-y-4">
+      <div className="liquid-card bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] shadow-warm-sm space-y-4">
         <h2 className="font-serif text-lg font-bold text-[#291D11] flex items-center gap-2">
           <MessageCircle className="w-5 h-5 text-[#C8692F]" />
           {isAr
@@ -351,7 +351,7 @@ Payment Method: ${
         </p>
 
         {/* Clarification Alert */}
-        <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-[#E8DED1] text-xs text-[#8A7968] flex items-start gap-3">
+        <div className="liquid-card bg-[#FAF7F2] p-4 rounded-2xl border border-[#E8DED1] text-xs text-[#8A7968] flex items-start gap-3">
           <AlertTriangle className="w-4 h-4 text-[#B8862B] shrink-0 mt-0.5" />
           <p>
             {isAr
@@ -396,7 +396,7 @@ Payment Method: ${
       {/* Payment Instructions & Proof Upload (For InstaPay & Vodafone Cash) */}
       {(order.payment_method === "instapay" ||
         order.payment_method === "vodafone_cash") && (
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] shadow-warm-sm space-y-6">
+        <div className="liquid-card bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] shadow-warm-sm space-y-6">
           <div className="flex items-center gap-2 border-b border-[#F0EAE1] pb-4">
             <CreditCard className="w-5 h-5 text-[#C8692F]" />
             <h2 className="font-serif text-lg font-bold text-[#291D11]">
@@ -411,7 +411,7 @@ Payment Method: ${
           </div>
 
           {/* Payment Account Details */}
-          <div className="bg-[#FAF7F2] p-5 rounded-2xl border border-[#E8DED1] space-y-3">
+          <div className="liquid-card bg-[#FAF7F2] p-5 rounded-2xl border border-[#E8DED1] space-y-3">
             {order.payment_method === "instapay" ? (
               <>
                 <div className="flex justify-between items-center text-xs sm:text-sm">
@@ -588,13 +588,13 @@ Payment Method: ${
       )}
 
       {/* Order Items & Breakdown */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] shadow-warm-sm space-y-6">
+      <div className="liquid-card bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DED1] shadow-warm-sm space-y-6">
         <h2 className="font-serif text-lg font-bold text-[#291D11]">
           {isAr ? "تفاصيل المنتجات والعنوان" : "Order Details & Delivery"}
         </h2>
 
         {/* Customer & Address Details */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-[#FAF7F2] p-4 sm:p-5 rounded-2xl border border-[#E8DED1] text-xs sm:text-sm">
+        <div className="liquid-card grid grid-cols-1 md:grid-cols-2 gap-4 bg-[#FAF7F2] p-4 sm:p-5 rounded-2xl border border-[#E8DED1] text-xs sm:text-sm">
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-[#8A7968]">
               <MapPin className="w-4 h-4 text-[#C8692F]" />
@@ -662,7 +662,7 @@ Payment Method: ${
         </div>
 
         {/* Totals Summary */}
-        <div className="bg-[#FAF7F2] p-5 rounded-2xl border border-[#E8DED1] space-y-2 text-xs sm:text-sm">
+        <div className="liquid-card bg-[#FAF7F2] p-5 rounded-2xl border border-[#E8DED1] space-y-2 text-xs sm:text-sm">
           <div className="flex justify-between text-[#6E5F50]">
             <span>{isAr ? "مجموع المنتجات:" : "Subtotal:"}</span>
             <span>
@@ -688,7 +688,7 @@ Payment Method: ${
       <div className="text-center pb-8">
         <Link
           href="/products"
-          className="inline-flex items-center gap-2 bg-[#FAF7F2] hover:bg-[#F0EAE1] text-[#291D11] border border-[#E8DED1] px-6 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-colors"
+          className="liquid-card inline-flex items-center gap-2 bg-[#FAF7F2] hover:bg-[#F0EAE1] text-[#291D11] border border-[#E8DED1] px-6 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-colors"
         >
           <span>{isAr ? "تصفح المزيد من أعمال آرتيك" : "Continue Shopping"}</span>
           <ChevronRight className={`w-4 h-4 ${isAr ? "rotate-180" : ""}`} />

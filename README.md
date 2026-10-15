@@ -2,9 +2,9 @@
 
 [Live website](https://artique-store.vercel.app/) · [بالعربية](docs/README_AR.md)
 
-A bilingual Arabic/English storefront for handmade crochet products, featuring an interactive Three.js atelier, responsive browsing, product variants, a cart, checkout, and an administration dashboard.
+A bilingual Arabic/English storefront for handmade crochet products, featuring an interactive Three.js photo tour, a unified liquid glass interface, responsive browsing, product variants, a cart, checkout, and an administration dashboard.
 
-![Artique interactive atelier](docs/screenshots/01-home-desktop.jpg)
+[Explore the current photo tour and glass storefront](https://artique-store.vercel.app/)
 
 ## About this repository
 
@@ -14,7 +14,8 @@ It includes application source, sample catalog data, automated tests, database s
 
 ## Experience
 
-- Interactive 3D atelier built with Three.js: product frames, camera movement, lighting controls, and reduced-motion support. The room is rendered in 3D; product photography is displayed on frames, rather than reconstructed as true 3D product models.
+- Interactive Three.js photo tour with 3D frames, camera movement, and product photography. It reads published catalog images, current prices and availability on page load; product photography is displayed on 3D frames rather than reconstructed as true 3D product models.
+- Cream, blush and champagne backgrounds throughout the storefront, liquid glass navigation and cards, and pointer-driven card tilt with reduced-motion support.
 - Arabic RTL and English layouts; mobile navigation and responsive shopping views.
 - Categories, filtering, product variants, quantity selection, quick view, and cart.
 - Server-calculated checkout totals, stock checks, order access sessions, and payment-proof review flows.
@@ -61,11 +62,8 @@ Validated on 2026-10-15: 18 automated tests passed and the Next.js production bu
 | Private storage and database schema | `supabase/migrations/` |
 | Isolated business-logic and session tests | `tests/` |
 
-## Screenshots
+## Visual review
 
-![Collections](docs/screenshots/02-categories-desktop.jpg)
-![Product details](docs/screenshots/03-product-details-desktop.jpg)
-<img src="docs/screenshots/04-home-mobile.jpg" alt="Artique mobile homepage" width="300" />
-<img src="docs/screenshots/05-store-mobile.jpg" alt="Artique mobile store" width="300" />
+Review the current [homepage and photo tour](https://artique-store.vercel.app/), [collections](https://artique-store.vercel.app/#categories), and [product catalog](https://artique-store.vercel.app/products) on desktop and mobile. The older atelier captures in `docs/screenshots` document the previous design.
 
 Source is published for portfolio review. No software or branding license is granted by this repository; product imagery and branding remain subject to their owners' rights.

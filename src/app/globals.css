@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./atelier.css";
+@import "./storefront-glass.css";
 
 :root {
   --font-arabic: var(--font-cairo), system-ui, -apple-system, sans-serif;

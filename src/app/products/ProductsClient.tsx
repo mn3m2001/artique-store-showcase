@@ -77,7 +77,7 @@ export function ProductsClient({
       </div>
       </div>
       {/* Search & Filter Header Bar */}
-      <div className="bg-white p-4 sm:p-6 rounded-2xl border border-[#E8DED1] shadow-warm-sm space-y-4">
+      <div className="liquid-card bg-white p-4 sm:p-6 rounded-2xl border border-[#E8DED1] shadow-warm-sm space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
           {/* Search Input */}
           <div className="md:col-span-6 relative">
@@ -92,7 +92,7 @@ export function ProductsClient({
           </div>
 
           {/* Type Filter (All / Ready / Made to Order) */}
-          <div className="md:col-span-3 flex items-center bg-[#FAF7F2] p-1 rounded-xl border border-[#E0D3C1]">
+          <div className="catalog-type-filter md:col-span-3 flex items-center bg-[#FAF7F2] p-1 rounded-xl border border-[#E0D3C1]">
             <button
               onClick={() => setTypeFilter("all")}
               className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${
@@ -178,7 +178,7 @@ export function ProductsClient({
           ))}
         </div>
       ) : (
-        <div className="bg-white rounded-2xl p-16 text-center border border-[#E8DED1] space-y-4">
+        <div className="liquid-card bg-white rounded-2xl p-16 text-center border border-[#E8DED1] space-y-4">
           <div className="w-16 h-16 rounded-full bg-[#F3ECE1] mx-auto flex items-center justify-center text-[#C8692F]">
             <Sparkles className="w-8 h-8" />
           </div>

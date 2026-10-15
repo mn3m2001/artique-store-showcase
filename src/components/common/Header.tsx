@@ -101,7 +101,7 @@ export function Header({
       </div>
 
       {/* 2. Main Navigation Bar */}
-      <header className="sticky top-0 z-40 bg-[#FAF7F2]/95 backdrop-blur-md border-b border-[#E8DED1] transition-shadow">
+      <header className="store-header sticky top-0 z-40 bg-[#FAF7F2]/95 backdrop-blur-md border-b border-[#E8DED1] transition-shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
           {/* Logo & Brand */}
           <Link href="/" className="flex items-center gap-3 group shrink-0">
@@ -148,7 +148,7 @@ export function Header({
 
           {/* Actions: Instagram, Cart, Mobile Toggle */}
           <div className="flex items-center gap-3">
-            {immersive && <button onClick={toggleLanguage} className="text-xs font-semibold px-2 py-2" aria-label="Toggle language">{locale === "ar" ? "EN" : "عربي"}</button>}
+            {immersive && <button onClick={toggleLanguage} className="glass-control text-xs font-semibold px-3 py-2" aria-label="Toggle language">{locale === "ar" ? "EN" : "عربي"}</button>}
             {/* Instagram Link */}
             <a
               href="https://www.instagram.com/artique_11/"
@@ -164,7 +164,7 @@ export function Header({
             {/* Shopping Cart Button */}
             <Link
               href="/cart"
-              className="relative flex items-center gap-2 bg-[#F3ECE1] hover:bg-[#EBE0D0] text-[#291D11] px-4 py-2.5 rounded-full font-medium text-sm transition-all border border-[#E0D3C1] hover:border-[#C8692F]"
+              className="glass-control relative flex items-center gap-2 bg-[#F3ECE1] hover:bg-[#EBE0D0] text-[#291D11] px-4 py-2.5 rounded-full font-medium text-sm transition-all border border-[#E0D3C1] hover:border-[#C8692F]"
               aria-label={`${t.nav.cart}${isHydrated && itemCount > 0 ? ` (${itemCount})` : ""}`}
             >
               <ShoppingBag className="w-4 h-4 text-[#C8692F]" />
@@ -179,7 +179,7 @@ export function Header({
             {/* Mobile menu trigger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-[#291D11] hover:bg-[#F3ECE1] rounded-lg transition-colors"
+              className="glass-control md:hidden p-2 text-[#291D11] hover:bg-[#F3ECE1] rounded-lg transition-colors"
               aria-label={locale === "ar" ? "قائمة المتجر" : "Store menu"}
               aria-expanded={mobileMenuOpen}
               aria-controls="store-mobile-menu"

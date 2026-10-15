@@ -6,7 +6,7 @@ import { ArrowLeft, ArrowRight, MoveUpRight, MapPin, Scissors, ShieldCheck, Star
 import type { Category, Product, StoreSettings } from "@/types";
 import { useLanguage } from "@/context/LanguageContext";
 import { ProductCard } from "@/components/products/ProductCard";
-import { AtelierExperience } from "./AtelierExperience";
+import { PhotoTourIntro } from "./PhotoTourIntro";
 
 export function AtelierHome({ settings, categories, featuredProducts }: {
   settings: StoreSettings; categories: Category[]; featuredProducts: Product[]; isDemo: boolean;
@@ -16,7 +16,7 @@ export function AtelierHome({ settings, categories, featuredProducts }: {
   const Arrow = ar ? ArrowLeft : ArrowRight;
   const reviews = (settings.customer_reviews || []).filter((review) => review.published && review.confirmed);
   return <main className="atelier-home">
-    {(settings.show_hero_section ?? true) && <AtelierExperience products={featuredProducts} settings={settings} />}
+    {(settings.show_hero_section ?? true) && <PhotoTourIntro />}
     {(settings.show_trust_banner ?? true) && <div className="atelier-promises"><span><MapPin size={15} />{ar ? "من دمياط، بكل حب" : "From Damietta, with love"}</span><span><Scissors size={15} />{ar ? "كل قطعة تحمل أثر اليد" : "Every piece carries a human touch"}</span><span><ShieldCheck size={15} />{ar ? "دفع مرن • توصيل داخل دمياط" : "Flexible payments • Damietta delivery"}</span></div>}
 
     {(settings.show_categories_section ?? true) && <section id="categories" className="atelier-section atelier-collections">

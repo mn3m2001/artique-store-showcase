@@ -78,7 +78,7 @@ export function ProductCard({ product }: { product: Product }) {
       <div className="craft-card-content p-5 flex flex-col flex-1 justify-between gap-3">
         <div>
           {categoryName && (
-            <span className="text-xs font-semibold text-[#8C7A6B] block mb-1">
+            <span className="craft-card-category text-xs font-semibold text-[#8C7A6B] block mb-1">
               {categoryName}
             </span>
           )}
@@ -90,7 +90,7 @@ export function ProductCard({ product }: { product: Product }) {
         </div>
 
         {/* Price & Action */}
-        <div className="pt-2 border-t border-[#F0E6D8] flex items-center justify-between gap-2">
+        <div className="craft-card-price-row pt-2 border-t border-[#F0E6D8] flex items-center justify-between gap-2">
           <div className="flex flex-col">
             <span className="text-xs text-[#8C7A6B]">{locale === "ar" ? "السعر" : "Price"}</span>
             <div className="flex items-baseline gap-1">

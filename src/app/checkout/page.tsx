@@ -14,7 +14,7 @@ export default async function CheckoutPage() {
   ]);
 
   return (
-    <div className="atelier-purchase min-h-screen bg-[#FAF7F2] py-8 sm:py-12">
+    <div className="storefront-shell atelier-purchase min-h-screen bg-[#FAF7F2] py-8 sm:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <CheckoutClient shippingAreas={shippingAreas} settings={settings} />
       </div>

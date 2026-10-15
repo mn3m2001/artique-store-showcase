@@ -132,7 +132,7 @@ export function ProductDetailClient({
         {/* 1. Image Gallery */}
         <div className="lg:col-span-7 space-y-4">
           {/* Main Image Stage */}
-          <div className="relative aspect-[4/5] sm:aspect-square w-full rounded-3xl overflow-hidden bg-white border border-[#E8DED1] shadow-warm-sm group">
+          <div className="liquid-card relative aspect-[4/5] sm:aspect-square w-full rounded-3xl overflow-hidden bg-white border border-[#E8DED1] shadow-warm-sm group">
             <Image
               src={images[activeImageIndex]?.url || "/demo-media/5415cb931ba250dc.webp"}
               alt={name}
@@ -310,7 +310,7 @@ export function ProductDetailClient({
                   onChange={(e) => setCustomNote(e.target.value)}
                   placeholder={t.products.customNotesPlaceholder}
                   rows={2}
-                  className="w-full p-3 bg-white rounded-2xl border border-[#E0D3C1] focus:border-[#C8692F] text-xs outline-none transition-all placeholder:text-[#8C7A6B]"
+                  className="liquid-card w-full p-3 bg-white rounded-2xl border border-[#E0D3C1] focus:border-[#C8692F] text-xs outline-none transition-all placeholder:text-[#8C7A6B]"
                 />
               </div>
             )}
@@ -420,7 +420,7 @@ export function ProductDetailClient({
 
             {/* Tab 1: Craft specs */}
             {activeSpecTab === "craft" && (
-              <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-[#E8DED1] space-y-2 text-xs">
+              <div className="liquid-card bg-[#FAF7F2] p-4 rounded-2xl border border-[#E8DED1] space-y-2 text-xs">
                 <div className="flex justify-between py-1 border-b border-[#E8DED1]/60">
                   <span className="text-[#8A7968]">{isAr ? "نوع الخيوط / الخامة:" : "Material:"}</span>
                   <span className="font-bold text-[#291D11]">
@@ -442,7 +442,7 @@ export function ProductDetailClient({
 
             {/* Tab 2: Clear distinction between Preparation Time and Delivery Time */}
             {activeSpecTab === "prep" && (
-              <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-[#E8DED1] space-y-3 text-xs">
+              <div className="liquid-card bg-[#FAF7F2] p-4 rounded-2xl border border-[#E8DED1] space-y-3 text-xs">
                 <div className="flex items-start gap-2.5">
                   <Clock className="w-4 h-4 text-[#C8692F] shrink-0 mt-0.5" />
                   <div>
@@ -479,7 +479,7 @@ export function ProductDetailClient({
 
             {/* Tab 3: Care Guide */}
             {activeSpecTab === "care" && (
-              <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-[#E8DED1] space-y-2 text-xs text-[#6E5F50] leading-relaxed">
+              <div className="liquid-card bg-[#FAF7F2] p-4 rounded-2xl border border-[#E8DED1] space-y-2 text-xs text-[#6E5F50] leading-relaxed">
                 <p>
                   {(isAr ? product.care_instructions_ar : product.care_instructions_en) || (isAr
                     ? "اطلب من المتجر تعليمات العناية المناسبة لخامة هذه القطعة قبل غسلها."

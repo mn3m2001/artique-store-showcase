@@ -1,0 +1,393 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Artique Photo Tour</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Fraunces:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+/* Layout: full-screen WebGL journey. Real product photos float as framed cards; scroll flies the camera through them, a glass panel carries each product's details. Palette taken from the Artique logo: cream ground, olive bowl, dusty pink yarn, gold wordmark, warm near-black. */
+:root{--ink:#291d11;--rose:#c8692f;--cream:#fdfbf8;--olive:#7a7452;--gold:#b8862b;--bg:#faf7f2;color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg)}
+body{font-family:'Cairo',system-ui,'Segoe UI',Tahoma,sans-serif;color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+#bg{position:fixed;inset:0;z-index:0;background:var(--bg)}
+#mark{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:1;pointer-events:none;font:italic 400 min(30vw,430px)/1 'Fraunces',Georgia,serif;color:rgba(255,255,255,.42);letter-spacing:-.03em;will-change:transform;direction:ltr}
+canvas{position:fixed;inset:0;width:100%;height:100%;z-index:2;display:block;touch-action:pan-y}
+#spacer{height:800vh}
+header{position:fixed;top:0;left:0;right:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:16px;padding-left:max(clamp(16px,4vw,44px),env(safe-area-inset-left,0px));padding-right:max(clamp(16px,4vw,44px),env(safe-area-inset-right,0px));pointer-events:none}
+header>*{pointer-events:auto}
+.logo{font-weight:800;font-size:1.55rem;display:flex;gap:10px;align-items:baseline;text-decoration:none;color:var(--ink)}
+.logo small{font:italic 400 1rem Fraunces,Georgia,serif;opacity:.6;letter-spacing:.04em;direction:ltr}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:999px;font:600 .92rem Cairo,sans-serif;text-decoration:none;border:0;cursor:pointer;transition:transform .25s,box-shadow .25s,background .25s}
+.pill.solid{background:var(--ink);color:#fff}
+.pill.solid:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(58,35,39,.28);background:var(--rose)}
+.pill.ghost{background:rgba(255,255,255,.6);color:var(--ink);backdrop-filter:blur(8px)}
+.pill.ghost:hover{background:#fff;transform:translateY(-2px)}
+.pill:focus-visible,#dots button:focus-visible{outline:3px solid var(--rose);outline-offset:3px}
+#panel{position:fixed;z-index:10;top:50%;inset-inline-start:max(clamp(16px,5vw,76px),env(safe-area-inset-right,0px));width:min(440px,38vw);transform:translateY(-50%);padding:30px 32px 28px;border-radius:30px;background:linear-gradient(145deg,rgba(255,255,255,.5),rgba(255,248,240,.3) 55%,rgba(248,229,222,.2));border:1px solid rgba(255,255,255,.8);backdrop-filter:blur(26px) saturate(1.45);-webkit-backdrop-filter:blur(18px) saturate(1.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.86),inset 0 -1px 0 rgba(255,255,255,.3),0 30px 70px -20px rgba(110,50,60,.3),0 0 0 1px rgba(255,255,255,.16)}#panel::before{content:"";position:absolute;inset:1px;z-index:0;border-radius:inherit;background:linear-gradient(125deg,rgba(255,255,255,.34),transparent 42%,rgba(255,255,255,.1));pointer-events:none}#panel::after{content:"";position:absolute;top:-70%;left:-42%;z-index:0;width:64%;height:240%;transform:rotate(28deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.32),transparent);pointer-events:none}#panel>*{position:relative;z-index:1}
+#panel .x{transition:opacity .28s ease,transform .28s ease}
+#panel.swap .x{opacity:0;transform:translateY(12px)}
+#pLogo{display:none;width:132px;height:132px;border-radius:20px;margin-bottom:8px;mix-blend-mode:multiply}
+#panel.hero #pLogo{display:block}
+.idx{font:italic 400 1rem Fraunces,Georgia,serif;direction:ltr;text-align:right;opacity:.65;margin-bottom:10px}
+.idx b{font-size:2.1rem;font-weight:400;color:var(--rose)}
+.tag{font-size:.78rem;letter-spacing:.12em;opacity:.65;margin-bottom:10px;font-weight:600}
+#pTitle{font-size:clamp(1.45rem,2.3vw,2.05rem);line-height:1.35;font-weight:800;margin-bottom:6px;text-wrap:balance}
+#pEn{font:italic 400 1.05rem Fraunces,Georgia,serif;opacity:.6;margin-bottom:14px;direction:ltr;text-align:right}
+#pText{line-height:1.85;font-size:.98rem;opacity:.88;margin-bottom:18px}
+.meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
+.price{font-weight:800;font-size:1.4rem;color:var(--rose)}
+.badge{font-size:.78rem;padding:5px 12px;border-radius:999px;background:rgba(201,86,106,.15);color:#9c3347;font-weight:600}
+.cta{display:flex;gap:10px;flex-wrap:wrap}
+#dots{position:fixed;z-index:10;inset-inline-end:max(clamp(14px,2.4vw,34px),env(safe-area-inset-left,0px));top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px}
+#dots button{width:8px;height:8px;border-radius:99px;border:0;background:rgba(58,35,39,.3);cursor:pointer;transition:height .35s,background .35s;padding:0}
+#dots button.on{height:22px;background:var(--rose)}
+#dots button:hover{background:var(--ink)}
+#hint{position:fixed;z-index:10;bottom:calc(26px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:.85rem;opacity:.75;transition:opacity .5s;pointer-events:none;text-align:center}
+#hint i{width:22px;height:36px;border:2px solid var(--ink);border-radius:14px;position:relative;opacity:.7}
+#hint i::after{content:"";position:absolute;left:50%;top:7px;width:4px;height:8px;margin-left:-2px;border-radius:4px;background:var(--ink);animation:wheel 1.6s infinite}
+@keyframes wheel{0%{transform:translateY(0);opacity:1}100%{transform:translateY(12px);opacity:0}}
+#tip{position:fixed;z-index:20;pointer-events:none;padding:7px 14px;border-radius:999px;background:var(--ink);color:#fff;font-size:.82rem;font-weight:600;transform:translate(14px,-40px);opacity:0;transition:opacity .2s;white-space:nowrap}
+#note{position:fixed;z-index:9;bottom:calc(8px + env(safe-area-inset-bottom,0px));inset-inline-start:max(clamp(16px,5vw,76px),env(safe-area-inset-right,0px));font-size:.7rem;opacity:.55}
+#loader{position:fixed;inset:0;z-index:50;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .8s .1s,visibility .8s .1s;font-weight:600}
+#loader.done{opacity:0;visibility:hidden}
+#loader img{width:130px;height:130px;border-radius:26px;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.06)}}
+#fail{display:none;position:fixed;inset:0;z-index:60;align-items:center;justify-content:center;text-align:center;padding:30px;background:var(--bg);font-size:1.1rem;line-height:1.9}
+@media (max-width:820px){
+  #panel{top:auto;bottom:calc(30px + env(safe-area-inset-bottom,0px));transform:none;inset-inline:max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-left,0px));width:auto;padding:18px 20px;border-radius:24px}
+  #pText{font-size:.88rem;line-height:1.7;margin-bottom:12px}
+  .meta{margin-bottom:12px}
+  #pEn{margin-bottom:8px}
+  .idx b{font-size:1.5rem}.idx{margin-bottom:4px}
+  #pTitle{font-size:1.2rem}
+  #panel.hero #pLogo{width:72px;height:72px;margin-bottom:4px}
+  #hint{bottom:auto;top:calc(74px + env(safe-area-inset-top,0px))}
+  #note{inset-inline:0;text-align:center;bottom:calc(5px + env(safe-area-inset-bottom,0px))}
+  #dots{gap:6px}
+  .pill{padding:9px 16px;font-size:.85rem}
+  header .pill.solid{display:none}
+}
+@media (prefers-reduced-motion:reduce){#hint i::after{animation:none}#loader img{animation:none}}
+</style>
+<script>document.documentElement.setAttribute('dir','rtl');document.documentElement.setAttribute('lang','ar');</script>
+<div id="bg"></div>
+<div id="mark">Artique</div>
+<canvas id="c"></canvas>
+
+
+
+<aside id="panel" aria-live="polite">
+  <img id="pLogo" class="x" alt="Artique Yarn Crafts" width="120" height="120">
+  <div class="x idx"><b id="pIdx">01</b> / <span id="pOf">08</span></div>
+  <div class="x tag" id="pTag"></div>
+  <h1 class="x" id="pTitle"></h1>
+  <div class="x" id="pEn"></div>
+  <p class="x" id="pText"></p>
+  <div class="x meta" id="pMeta"><span class="price" id="pPrice"></span><span class="badge" id="pBadge"></span></div>
+  <div class="x cta">
+    <a class="pill solid" id="pCta" href="#" target="_blank" rel="noopener"></a>
+    <a class="pill ghost" id="pCta2" href="#" target="_blank" rel="noopener"></a>
+  </div>
+</aside>
+
+<nav id="dots" aria-label="مراحل الرحلة"></nav>
+<div id="hint"><i></i><span>مرّر للأسفل • حرّك الماوس • اضغط على أي صورة</span></div>
+<div id="tip"></div>
+<div id="note">جولة ثلاثية الأبعاد لمنتجات آرتيك، تتحدث من بيانات المتجر</div>
+<div id="loader"><img id="lLogo" src="/demo-media/logo-67c9bd5fb43debcf.png" alt="Artique Yarn Crafts" width="130" height="130"><div>جاري نسج المشهد…</div></div>
+<div id="fail">متصفحك لا يدعم WebGL، جرّب متصفحًا أحدث لمشاهدة التصور ثلاثي الأبعاد.</div>
+<div id="spacer"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(async function(){
+'use strict';
+const SITE=window.location.origin;
+const fail=document.getElementById('fail');
+let sourceProducts=[];
+try{
+  const response=await fetch('/api/public/photo-tour',{cache:'no-store'});
+  if(!response.ok)throw new Error('Product feed unavailable');
+  const payload=await response.json();
+  sourceProducts=Array.isArray(payload.products)?payload.products:[];
+}catch(error){
+  fail.textContent='تعذر تحميل منتجات المتجر الآن. حدّث الصفحة بعد لحظات.';
+  fail.style.display='flex';
+  document.getElementById('loader').classList.add('done');
+  return;
+}
+if(sourceProducts.length===0){
+  fail.textContent='لا توجد منتجات منشورة بصور حتى الآن. أضف صورة وانشر المنتج ليظهر في الجولة.';
+  fail.style.display='flex';
+  document.getElementById('loader').classList.add('done');
+  return;
+}
+const imageSizes=await Promise.all(sourceProducts.map(product=>new Promise(resolve=>{
+  const image=new Image();
+  image.onload=()=>resolve({w:image.naturalWidth||4,h:image.naturalHeight||5});
+  image.onerror=()=>resolve({w:4,h:5});
+  image.src=product.image.url;
+})));
+const IMGS=sourceProducts.map((product,index)=>({src:product.image.url,...imageSizes[index]}));
+const N=IMGS.length+2,GAP=16;
+const REDUCE=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- content (prices and badges are the ones on the live site; the other pieces carry no price) ---------- */
+const P=sourceProducts.map(product=>({
+  tag:`${product.category_ar} · ${product.category_en}`,
+  t:product.name_ar,
+  en:product.name_en||product.name_ar,
+  p:product.description_ar||'قطعة يدوية من مشغولات آرتيك.',
+  price:`${new Intl.NumberFormat('ar-EG',{maximumFractionDigits:2}).format(product.price)} ج.م`,
+  badge:product.stock_quantity===0?'نفدت مؤقتًا':product.is_made_to_order?'تفصيل حسب الطلب':'جاهز للتسليم الفوري',
+  url:`/products/${encodeURIComponent(product.slug)}`,
+  cta:'شاهد المنتج في المتجر ↗',
+  tip:product.name_ar
+}));
+const INFO=[{tag:'ARTIQUE / THE CRAFT ATELIER · دمياط، مصر',t:'لمسات يدوية دافئة تُخلّد أجمل لحظاتكم',en:'Welcome to the atelier',p:'ادخل عالم آرتيك. خيوط دافئة، وتفاصيل تحمل أثر اليد، وقطع تحكي شيئًا منك. اضغط على أي صورة لتقترب منها.',hero:true}]
+ .concat(P,[{tag:'من دمياط، بكل حب',t:'وراء كل غرزة، يد وقلب',en:'Made with intention. Kept with love.',p:'كل قطعة ننسجها في دمياط قصة تبدأ بخيط وتنتهي بتحفة تنبض بالحياة.',url:'/products',cta:'ادخل المتجر ↗',cta2:'إنستغرام @artique_11',url2:'https://www.instagram.com/artique_11/',tip:''}]);
+/* background per station: each photo's own average colour, softened toward the logo cream */
+const BG=["#faf7f2", "#bfb19a", "#dbd6cb", "#b8afa3", "#cfaea3", "#b9b5ab", "#d9c6b3", "#b7ad9f", "#aca393", "#c9c1b2", "#e0d7cd", "#c1b8b0", "#b6b19d", "#cecdc3", "#c0b9a5", "#dbcab0", "#c9c3b5", "#f3ece1"];
+
+/* ---------- renderer ---------- */
+const canvas=document.getElementById('c');
+let renderer;
+try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'});}
+catch(e){document.getElementById('fail').style.display='flex';document.getElementById('loader').classList.add('done');return;}
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+renderer.setClearColor(0x000000,0);
+const scene=new THREE.Scene();
+scene.fog=new THREE.Fog(0xfaf7f2,24,64);
+const camera=new THREE.PerspectiveCamera(42,1,0.1,200);
+scene.add(new THREE.HemisphereLight(0xfff3ea,0xf0c4b4,1.0));
+const sun=new THREE.DirectionalLight(0xffffff,.7);sun.position.set(6,10,8);scene.add(sun);
+
+/* ---------- helpers ---------- */
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const rng=(s=>()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;})(11);
+const flat=(hex,o)=>new THREE.MeshStandardMaterial(Object.assign({color:hex,roughness:.85,metalness:0},o||{}));
+function tube(pts,r,mat,seg,rad){return new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),seg||28,r,rad||8,false),mat);}
+function rr(w,h,r){const s=new THREE.Shape(),x=-w/2,y=-h/2;s.moveTo(x+r,y);s.lineTo(x+w-r,y);s.quadraticCurveTo(x+w,y,x+w,y+r);s.lineTo(x+w,y+h-r);s.quadraticCurveTo(x+w,y+h,x+w-r,y+h);s.lineTo(x+r,y+h);s.quadraticCurveTo(x,y+h,x,y+h-r);s.lineTo(x,y+r);s.quadraticCurveTo(x,y,x+r,y);return s;}
+function heartShape(sc){const s=new THREE.Shape();const T=(x,y)=>[(x-.25)*sc,-(y-.475)*sc];
+  const mv=(x,y)=>s.moveTo.apply(s,T(x,y));const bz=(a,b,c,d,e,f)=>s.bezierCurveTo.apply(s,[].concat(T(a,b),T(c,d),T(e,f)));
+  mv(.25,.25);bz(.25,.25,.2,0,0,0);bz(-.3,0,-.3,.35,-.3,.35);bz(-.3,.55,-.15,.77,.25,.95);bz(.6,.77,.8,.55,.8,.35);bz(.8,.35,.8,0,.5,0);bz(.35,0,.25,.25,.25,.25);return s;}
+const haloTex=(()=>{const c=document.createElement('canvas');c.width=c.height=128;const g=c.getContext('2d');const r=g.createRadialGradient(64,64,6,64,64,62);r.addColorStop(0,'rgba(255,214,200,.75)');r.addColorStop(1,'rgba(255,214,200,0)');g.fillStyle=r;g.fillRect(0,0,128,128);return new THREE.CanvasTexture(c);})();
+
+/* ---------- photo card: cream frame + the real photo, built at height 1 ---------- */
+function makeCard(tex,asp){
+  const g=new THREE.Group(),w=asp,h=1,m=.045;
+  const fr=new THREE.Mesh(new THREE.ExtrudeGeometry(rr(w+m*2,h+m*2,.085),{depth:.05,bevelEnabled:true,bevelSize:.012,bevelThickness:.012,bevelSegments:2,curveSegments:10}),new THREE.MeshPhysicalMaterial({color:0xfff7ef,roughness:.22,metalness:.04,clearcoat:.85,clearcoatRoughness:.12}));
+  fr.position.z=-.025;
+  const back=new THREE.Mesh(new THREE.PlaneGeometry(w+m*2,h+m*2),new THREE.MeshPhysicalMaterial({color:0xfff8f2,roughness:.14,transparent:true,opacity:.28,clearcoat:1,clearcoatRoughness:.08,depthWrite:false,side:THREE.DoubleSide}));back.position.z=-.06;
+  const sg=new THREE.ShapeGeometry(rr(w,h,.065),10),pos=sg.attributes.position,uv=sg.attributes.uv;
+  for(let i=0;i<pos.count;i++)uv.setXY(i,pos.getX(i)/w+.5,pos.getY(i)/h+.5);
+  const ph=new THREE.Mesh(sg,new THREE.MeshBasicMaterial({map:tex}));ph.position.z=.042;
+  const halo=new THREE.Mesh(new THREE.PlaneGeometry(w+1.5,h+1.5),new THREE.MeshBasicMaterial({map:haloTex,transparent:true,depthWrite:false,fog:false}));
+  halo.position.z=-.25;halo.raycast=function(){};
+  g.add(halo,back,fr,ph);return g;
+}
+
+/* ---------- load photos, then build ---------- */
+const TEX=[];let pending=IMGS.length;
+const loader=new THREE.TextureLoader();
+IMGS.forEach((im,i)=>{
+  const done=()=>{if(--pending===0)init();};
+  loader.load(im.src,t=>{t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());t.minFilter=THREE.LinearMipmapLinearFilter;TEX[i]=t;done();},undefined,()=>{
+    const c=document.createElement('canvas');c.width=c.height=8;const g=c.getContext('2d');g.fillStyle='#f0c9c4';g.fillRect(0,0,8,8);TEX[i]=new THREE.CanvasTexture(c);done();});
+});
+
+function init(){
+/* ---------- stations ---------- */
+const stations=[],tmpRing=[];
+function addStation(i){
+  const anchor=new THREE.Group();anchor.position.set(0,0,-GAP*i);scene.add(anchor);
+  const st={anchor,show:0,hov:1,hovT:1,flip:0,pop:0,tx:0,ty:0,base:1};stations.push(st);return st;
+}
+function buildRing(st){
+  const grp=new THREE.Group(),cards=[];
+  IMGS.forEach((im,ci)=>{const c=makeCard(TEX[ci],im.w/im.h);c.userData={ring:ci,hov:1,hovT:1};grp.add(c);cards.push(c);});
+  st.anchor.add(grp);st.item=grp;st.cards=cards;st.ring=true;
+}
+function layoutRing(st,R,H){
+  st.R=R;st.ringScale=H;
+  st.cards.forEach((c,ci)=>{const a=ci/st.cards.length*Math.PI*2;c.position.set(Math.cos(a)*R,0,Math.sin(a)*R);c.rotation.y=Math.PI/2-a;});
+}
+for(let i=0;i<N;i++){
+  const st=addStation(i);
+  if(i===0||i===N-1){buildRing(st);}
+  else{
+    const im=IMGS[i-1],asp=im.w/im.h,holder=new THREE.Group(),card=makeCard(TEX[i-1],asp);
+    card.userData.sid=i;holder.add(card);st.anchor.add(holder);st.holder=holder;st.item=card;st.asp=asp;
+  }
+}
+function narrow(){return camera.aspect<.9;}
+function dist(k){const n=narrow(),base=n?(camera.aspect<.6?11:10):8.6;return(k===0||k===N-1)?base+(n?6:4.2):base;}
+function fit(){
+  const n=narrow(),d=dist(1),visH=2*d*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)),visW=visH*camera.aspect;
+  const maxW=n?visW*.86:visW*.5,maxH=n?visH*.46:visH*.76;
+  const RH=n?.95:1.6,sumW=IMGS.reduce((acc,im)=>acc+im.w/im.h*RH,0),RR=Math.max(n?2.4:3.4,sumW*1.25/(Math.PI*2));
+  stations.forEach(s=>{if(s.ring)layoutRing(s,RR,RH);else s.base=Math.min(maxW/s.asp,maxH);});
+}
+
+/* ---------- ambient: floating hearts, yarn balls, thread, dust ---------- */
+const pal=['#f6b3c3','#fbd3dc','#e0536f','#fff1e0','#e8c88f','#b9c79a','#a8304f'];
+const AMB=N*7,ambBall=new THREE.InstancedMesh(new THREE.SphereGeometry(1,16,12),new THREE.MeshStandardMaterial({roughness:.8}),AMB);
+const ambData=[];
+for(let i=0;i<AMB;i++){const sg=rng()<.5?-1:1;ambData.push({x:sg*(8+rng()*8),y:(rng()*2-1)*6,z:6-rng()*(GAP*(N-1)+20),s:.15+rng()*.45,ph:rng()*6.28,sp:.3+rng()*.6});ambBall.setColorAt(i,new THREE.Color(pal[i%pal.length]));}
+scene.add(ambBall);
+const hgeo=new THREE.ExtrudeGeometry(heartShape(.55),{depth:.12,bevelEnabled:true,bevelSize:.03,bevelThickness:.03,bevelSegments:2,curveSegments:16});hgeo.translate(0,0,-.06);
+const AMH=N*3,ambHeart=new THREE.InstancedMesh(hgeo,new THREE.MeshStandardMaterial({roughness:.7}),AMH),ambH=[];
+for(let i=0;i<AMH;i++){const sg=rng()<.5?-1:1;ambH.push({x:sg*(8+rng()*8),y:(rng()*2-1)*6,z:6-rng()*(GAP*(N-1)+20),s:.5+rng()*.9,ph:rng()*6.28,sp:.3+rng()*.7});ambHeart.setColorAt(i,new THREE.Color(['#e0536f','#f6b3c3','#a8304f','#fbd3dc'][i%4]));}
+scene.add(ambHeart);
+const dummy=new THREE.Object3D();
+const threadMat=[flat('#e0536f'),flat('#fff1e0'),flat('#8a9460')];
+for(let k=0;k<3;k++){const pts=[],sg=k%2?-1:1;for(let i=0;i<=N*6;i++){const z=10-i*(GAP*(N-1)+26)/(N*6);pts.push(new THREE.Vector3(sg*(9+k*1.4)+2*Math.sin(z*.17+k),2.6*Math.sin(z*.11+k*2),z));}scene.add(tube(pts,.055,threadMat[k],N*28,6));}
+const dust=(()=>{const c=document.createElement('canvas');c.width=c.height=64;const g=c.getContext('2d');const r=g.createRadialGradient(32,32,0,32,32,30);r.addColorStop(0,'rgba(255,255,255,1)');r.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=r;g.fillRect(0,0,64,64);
+  const n=N*65,p=new Float32Array(n*3);for(let i=0;i<n;i++){p[i*3]=(rng()*2-1)*15;p[i*3+1]=(rng()*2-1)*8;p[i*3+2]=10-rng()*(GAP*(N-1)+30);}
+  const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(p,3));
+  const pts=new THREE.Points(geo,new THREE.PointsMaterial({size:.16,map:new THREE.CanvasTexture(c),transparent:true,opacity:.85,depthWrite:false,color:0xffffff}));scene.add(pts);return pts;})();
+
+/* ---------- heart burst on click ---------- */
+const BM=110,bPos=new Float32Array(BM*3),bCol=new Float32Array(BM*3),bLife=new Float32Array(BM),bSize=new Float32Array(BM),bVel=new Float32Array(BM*3);
+const bGeo=new THREE.BufferGeometry();
+bGeo.setAttribute('position',new THREE.BufferAttribute(bPos,3));bGeo.setAttribute('aCol',new THREE.BufferAttribute(bCol,3));
+bGeo.setAttribute('aLife',new THREE.BufferAttribute(bLife,1));bGeo.setAttribute('aSize',new THREE.BufferAttribute(bSize,1));
+const bursts=new THREE.Points(bGeo,new THREE.ShaderMaterial({transparent:true,depthWrite:false,
+ vertexShader:'attribute vec3 aCol;attribute float aLife;attribute float aSize;varying vec3 vC;varying float vL;void main(){vC=aCol;vL=aLife;vec4 mv=modelViewMatrix*vec4(position,1.);gl_PointSize=aSize*(380./-mv.z)*min(1.,aLife*2.);gl_Position=projectionMatrix*mv;}',
+ fragmentShader:'varying vec3 vC;varying float vL;void main(){vec2 p=(gl_PointCoord-.5)*2.6;p.y=-p.y+.15;float a=p.x*p.x+p.y*p.y-1.;if(a*a*a-p.x*p.x*p.y*p.y*p.y>0.)discard;gl_FragColor=vec4(vC,clamp(vL*1.5,0.,1.));}'}));
+bursts.frustumCulled=false;scene.add(bursts);
+let bIdx=0;const bPal=['#e0536f','#f6b3c3','#ffd1dc','#f2a7b8','#ffffff','#e8c88f'].map(h=>new THREE.Color(h));
+function emit(p,n){for(let k=0;k<n;k++){const i=bIdx++%BM,c=bPal[(Math.random()*bPal.length)|0];
+  bPos[i*3]=p.x;bPos[i*3+1]=p.y;bPos[i*3+2]=p.z;const a=Math.random()*6.283,sp=2+Math.random()*3.2;
+  bVel[i*3]=Math.cos(a)*sp;bVel[i*3+1]=2+Math.random()*3.5;bVel[i*3+2]=Math.sin(a)*sp*.7+1.2;
+  bCol[i*3]=c.r;bCol[i*3+1]=c.g;bCol[i*3+2]=c.b;bLife[i]=1;bSize[i]=.22+Math.random()*.3;}
+  bGeo.attributes.aCol.needsUpdate=true;bGeo.attributes.aSize.needsUpdate=true;}
+
+/* ---------- UI ---------- */
+const $=id=>document.getElementById(id);
+const panel=$('panel'),dots=$('dots'),tip=$('tip'),hint=$('hint'),bg=$('bg'),mark=$('mark');
+$('pOf').textContent=String(N).padStart(2,'0');$('pLogo').src=$('lLogo').src;$('spacer').style.height=(N*100)+'vh';
+const dotEls=[];
+for(let i=0;i<N;i++){const b=document.createElement('button');b.setAttribute('aria-label','المحطة '+(i+1));b.onclick=()=>goTo(i);dots.appendChild(b);dotEls.push(b);}
+function maxScroll(){return Math.max(1,document.documentElement.scrollHeight-innerHeight);}
+function goTo(i){window.scrollTo({top:clamp(i,0,N-1)/(N-1)*maxScroll(),behavior:REDUCE?'auto':'smooth'});}
+let shown=-1;
+function showInfo(i){
+  if(i===shown)return;const first=shown<0;shown=i;
+  dotEls.forEach((d,k)=>d.classList.toggle('on',k===i));
+  const fill=()=>{
+    const f=INFO[i];panel.classList.toggle('hero',!!f.hero);
+    $('pIdx').textContent=String(i+1).padStart(2,'0');$('pTag').textContent=f.tag;$('pTitle').textContent=f.t;$('pEn').textContent=f.en;$('pText').textContent=f.p;
+    $('pPrice').textContent=f.price||'';$('pBadge').textContent=f.badge||'';$('pMeta').style.display=f.price?'flex':'none';
+    const c1=$('pCta'),c2=$('pCta2');
+    if(f.hero){c1.textContent='ابدأ الرحلة ↓';c1.removeAttribute('target');c1.href='#';c1.onclick=e=>{e.preventDefault();goTo(1);};
+      c2.textContent='تخطّي إلى المتجر ↗';c2.href=SITE+'/products';c2.target='_blank';c2.onclick=null;c2.style.display='';}
+    else{c1.textContent=f.cta||'شاهد المنتج في المتجر ↗';c1.href=SITE+f.url;c1.target='_blank';c1.onclick=null;
+      if(f.cta2){c2.textContent=f.cta2;c2.href=f.url2;c2.target='_blank';c2.onclick=null;c2.style.display='';}
+      else if(i<N-1){c2.textContent='التالي ↓';c2.href='#';c2.removeAttribute('target');c2.onclick=e=>{e.preventDefault();goTo(i+1);};c2.style.display='';}
+      else c2.style.display='none';}
+    panel.classList.remove('swap');
+  };
+  if(first)fill();else{panel.classList.add('swap');setTimeout(fill,260);}
+}
+
+/* ---------- input ---------- */
+let tx=0,ty=0,mx=0,my=0,lastMove=-99,px=0,py=0,hoverO=null,ts=0,time=0,frame=0;
+const ndc=new THREE.Vector2(0,0),ray=new THREE.Raycaster();
+addEventListener('pointermove',e=>{ndc.set(e.clientX/innerWidth*2-1,-(e.clientY/innerHeight)*2+1);px=e.clientX;py=e.clientY;if(e.pointerType==='mouse'){tx=ndc.x;ty=ndc.y;}lastMove=performance.now()/1000;},{passive:true});
+function owner(o){while(o){const u=o.userData;if(u&&(u.sid!==undefined||u.ring!==undefined))return o;o=o.parent;}return null;}
+function pickables(){const l=[];stations.forEach((s,i)=>{if(Math.abs(ts-i)<.55){if(s.ring)s.cards.forEach(c=>l.push(c));else l.push(s.item);}});return l;}
+function pick(){ray.setFromCamera(ndc,camera);const l=pickables();if(!l.length)return null;const h=ray.intersectObjects(l,true);return h.length?h[0]:null;}
+addEventListener('click',e=>{
+  if(e.target.closest('a,button,#panel,header,#dots'))return;
+  ndc.set(e.clientX/innerWidth*2-1,-(e.clientY/innerHeight)*2+1);
+  const h=pick();if(!h)return;const o=owner(h.object);if(!o)return;
+  emit(h.point,REDUCE?0:34);
+  if(o.userData.ring!==undefined)goTo(o.userData.ring+1);
+  else{const s=stations[o.userData.sid];s.flip=REDUCE?0:1;s.pop=1;}
+});
+addEventListener('keydown',e=>{
+  if(['ArrowDown','PageDown','ArrowLeft'].includes(e.key)){e.preventDefault();goTo(Math.round(ts)+1);}
+  if(['ArrowUp','PageUp','ArrowRight'].includes(e.key)){e.preventDefault();goTo(Math.round(ts)-1);}
+});
+function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();fit();}
+addEventListener('resize',resize);resize();
+
+/* ---------- camera rig ---------- */
+const bgCols=BG.map(h=>new THREE.Color(h)),col=new THREE.Color(),colB=new THREE.Color(),white=new THREE.Color('#ffffff');
+function rig(k,out){const C=stations[k].anchor.position,n=narrow(),shift=n?0:2.6;
+  out.pos.set(C.x+shift,C.y+.4+(n?.3:0),C.z+dist(k));out.look.set(C.x+shift,C.y+(n?-1.6:0),C.z);}
+const A={pos:new THREE.Vector3(),look:new THREE.Vector3()},B={pos:new THREE.Vector3(),look:new THREE.Vector3()};
+
+/* ---------- loop ---------- */
+let last=performance.now()/1000;
+function loop(){
+  requestAnimationFrame(loop);
+  const now=performance.now()/1000,dt=Math.min(.05,now-last);last=now;time+=dt;frame++;
+  const target=clamp(scrollY/maxScroll(),0,1)*(N-1);
+  ts+=(target-ts)*(1-Math.exp(-dt*4));
+  const k=1-Math.exp(-dt*5);mx+=(tx-mx)*k;my+=(ty-my)*k;
+
+  const i=Math.min(N-2,Math.floor(ts)),f=ts-i,e=f*f*(3-2*f);
+  rig(i,A);rig(i+1,B);A.pos.lerp(B.pos,e);A.look.lerp(B.look,e);
+  const arc=Math.sin(Math.PI*e);A.pos.y+=arc*3.8;
+  if(!REDUCE){A.pos.x+=mx*.8;A.pos.y+=my*.45;}
+  camera.position.copy(A.pos);camera.lookAt(A.look);camera.rotateZ(arc*.045*(i%2?-1:1));
+
+  col.copy(bgCols[i]).lerp(bgCols[i+1],e);colB.copy(col).lerp(white,.5);scene.fog.color.copy(col);
+  if(frame%2===0)bg.style.background='linear-gradient(160deg,#'+colB.getHexString()+' 0%,#'+col.getHexString()+' 100%)';
+  mark.style.transform='translate3d('+(-ts*(24/(N-1))+mx*-14)+'vw,'+(my*10)+'px,0) scale('+(1+ts*.02)+')';
+
+  stations.forEach((s,idx)=>{
+    const d=Math.abs(ts-idx);
+    s.show+=((d<1.4?1:0)-s.show)*(1-Math.exp(-dt*5));
+    s.anchor.visible=s.show>.01;if(!s.anchor.visible)return;
+    if(s.ring){
+      s.item.rotation.y+=(REDUCE?0:.22)*dt*(idx===0?1:-1);
+      s.cards.forEach((c,ci)=>{const u=c.userData;u.hov+=(u.hovT-u.hov)*(1-Math.exp(-dt*9));
+        c.scale.setScalar(Math.max(.001,s.ringScale*u.hov*s.show));c.position.y=Math.sin(time*1.2+ci*1.3)*.28*(REDUCE?0:1);});
+      return;
+    }
+    s.hov+=(s.hovT-s.hov)*(1-Math.exp(-dt*9));
+    const pop=s.pop?1+Math.sin((1-s.pop)*Math.PI)*.1:1;if(s.pop)s.pop=Math.max(0,s.pop-dt*2);
+    s.holder.scale.setScalar(Math.max(.001,s.base*s.show*s.hov*pop));
+    s.holder.position.y=Math.sin(time*1.1+idx*1.7)*.15*(REDUCE?0:1);
+    if(s.flip>0){s.flip=Math.max(0,s.flip-dt);const p=1-s.flip,ez=p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;s.item.rotation.y=ez*Math.PI*2;}
+    else s.item.rotation.y=REDUCE?0:Math.sin(time*.6+idx)*.1;
+    const act=clamp(1-d,0,1);
+    s.tx+=((mx*.25*act)-s.tx)*k;s.ty+=((-my*.15*act)-s.ty)*k;
+    s.holder.rotation.y=REDUCE?0:s.tx;s.holder.rotation.x=REDUCE?0:s.ty;
+  });
+
+  for(let n=0;n<AMB;n++){const a=ambData[n];dummy.position.set(a.x+Math.sin(time*a.sp+a.ph)*.5,a.y+Math.sin(time*a.sp*1.3+a.ph)*.7,a.z);dummy.scale.setScalar(a.s);dummy.rotation.set(0,0,0);dummy.updateMatrix();ambBall.setMatrixAt(n,dummy.matrix);}
+  ambBall.instanceMatrix.needsUpdate=true;
+  for(let n=0;n<AMH;n++){const a=ambH[n];dummy.position.set(a.x+Math.cos(time*a.sp+a.ph)*.6,a.y+Math.sin(time*a.sp+a.ph)*.8,a.z);dummy.scale.setScalar(a.s);dummy.rotation.set(Math.sin(time*a.sp)*.5,time*a.sp+a.ph,Math.cos(time*a.sp)*.4);dummy.updateMatrix();ambHeart.setMatrixAt(n,dummy.matrix);}
+  ambHeart.instanceMatrix.needsUpdate=true;
+  dust.rotation.y=Math.sin(time*.05)*.05;dust.position.y=Math.sin(time*.3)*.3;
+
+  for(let n=0;n<BM;n++){if(bLife[n]>0){bVel[n*3+1]-=7*dt;bPos[n*3]+=bVel[n*3]*dt;bPos[n*3+1]+=bVel[n*3+1]*dt;bPos[n*3+2]+=bVel[n*3+2]*dt;bLife[n]=Math.max(0,bLife[n]-dt*.85);}}
+  bGeo.attributes.position.needsUpdate=true;bGeo.attributes.aLife.needsUpdate=true;
+
+  if(frame%3===0){
+    const h=(performance.now()/1000-lastMove<30)?pick():null,o=h?owner(h.object):null;
+    if(o!==hoverO){
+      if(hoverO){if(hoverO.userData.ring!==undefined)hoverO.userData.hovT=1;else stations[hoverO.userData.sid].hovT=1;}
+      hoverO=o;
+      if(o){const ring=o.userData.ring!==undefined;if(ring)o.userData.hovT=1.12;else stations[o.userData.sid].hovT=1.05;
+        const nm=ring?INFO[o.userData.ring+1].tip:INFO[o.userData.sid].tip;
+        tip.textContent=nm+(ring?' — اضغط لتقترب':' — اضغط لتدور');tip.style.opacity=1;canvas.style.cursor='pointer';}
+      else{canvas.style.opacity='';tip.style.opacity=0;canvas.style.cursor='';}
+    }
+  }
+  tip.style.left=px+'px';tip.style.top=py+'px';
+
+  showInfo(Math.round(ts));
+  hint.style.opacity=ts<.25?.75:0;
+  renderer.render(scene,camera);
+}
+showInfo(0);loop();
+setTimeout(()=>$('loader').classList.add('done'),400);
+}
+})();
+</script>
+
+</body></html>

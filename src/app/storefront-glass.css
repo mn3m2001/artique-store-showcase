@@ -1,0 +1,120 @@
+/* The photo tour's cream, blush and champagne palette across the storefront. */
+.storefront-shell {
+  --glass-ink: #291d11;
+  --glass-muted: #756655;
+  --glass-line: rgba(255, 255, 255, .8);
+  --glass-surface: linear-gradient(135deg, rgba(255,255,255,.65), rgba(255,250,245,.35) 55%, rgba(247,222,215,.25));
+  --glass-shadow: inset 0 1px 0 rgba(255,255,255,.95), inset 0 -1px 0 rgba(255,255,255,.3), 0 18px 48px -24px rgba(110,66,57,.25);
+  position: relative;
+  isolation: isolate;
+  color: var(--glass-ink);
+  background: #faf7f2;
+}
+.storefront-shell::before, .storefront-shell::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.storefront-shell::before {
+  background: radial-gradient(ellipse at 8% 25%, #f1c7c566, transparent 42%), radial-gradient(ellipse at 88% 12%, #ead2a966, transparent 42%), radial-gradient(ellipse at 72% 85%, #f4d7d855, transparent 44%), #faf7f2;
+}
+.storefront-shell::after {
+  opacity: .45;
+  background: radial-gradient(ellipse 560px 240px at -8% 68%, transparent 99.3%, #c7a66f55 99.5%, transparent 99.8%), radial-gradient(ellipse 480px 210px at 108% 28%, transparent 99.3%, #d88f9d55 99.5%, transparent 99.8%);
+}
+.storefront-shell .atelier-home, .storefront-shell .atelier-purchase { background: transparent; color: var(--glass-ink); }
+.storefront-shell :is(.liquid-card, .craft-card, .atelier-category, .atelier-review-grid :where(blockquote), .atelier-policies > :where(div), .atelier-journey-copy, .atelier-more-categories) {
+  background: var(--glass-surface);
+  border: 1px solid var(--glass-line);
+  box-shadow: var(--glass-shadow);
+  border-radius: 28px;
+  backdrop-filter: blur(22px) saturate(1.35);
+}
+.storefront-shell :is(.craft-card, .atelier-category) {
+  transition: transform .22s ease-out, box-shadow .35s, border-color .35s;
+}
+.storefront-shell :is(.craft-card, .atelier-category):hover {
+  border-color: white;
+  box-shadow: inset 0 1px 0 white, 0 30px 55px -25px #8f60533d;
+}
+.storefront-shell .craft-card::after {
+  opacity: .65;
+  background: linear-gradient(125deg, #ffffff40, transparent 36%, #ffffff0d 60%, #ffffff26), radial-gradient(circle at var(--glow-x,50%) var(--glow-y,20%), #ffffff38, transparent 50%);
+}
+.storefront-shell .craft-card-media { background: linear-gradient(135deg, #ffffff30, #f5e3d524); border-color: #ffffff88; }
+.storefront-shell .craft-card-content { background: linear-gradient(150deg, #ffffff24, #fff6ed14); }
+.storefront-shell .atelier-category { display: block; padding: 12px 12px 22px; }
+.storefront-shell .atelier-category-image { border: 1px solid #ffffffa6; border-radius: 19px; }
+.storefront-shell .atelier-category > :is(h3,.atelier-eyebrow) { margin-inline: 8px; }
+.storefront-shell .atelier-category > .atelier-eyebrow { margin-top: 19px; }
+.storefront-shell .atelier-category h3 { color: var(--glass-ink); }
+.storefront-shell .atelier-eyebrow { color: #9b7751; }
+.storefront-shell :is(.atelier-section h2,.atelier-journey h2,.atelier-catalog-heading h1) { color: var(--glass-ink); font-weight: 700; }
+.storefront-shell :is(.atelier-section-heading > p,.atelier-story p,.atelier-journey-copy p,.atelier-policies p) { color: var(--glass-muted); }
+.storefront-shell .atelier-promises { background: #ffffff26; border-color: #ffffff99; }
+.storefront-shell .atelier-more-categories { padding: 18px 24px; }
+.storefront-shell .atelier-journey { max-width: 1320px; margin: 30px auto; padding: 0 5%; gap: 24px; background: transparent; min-height: 580px; }
+.storefront-shell .atelier-journey-copy { padding: 48px 10%; align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
+.storefront-shell :is(.atelier-journey-image,.atelier-story-image,.atelier-gift-image) { border: 1px solid #ffffffc7; border-radius: 28px; overflow: hidden; box-shadow: var(--glass-shadow); }
+.storefront-shell .atelier-policies { gap: 24px; border-top: 0; }
+.storefront-shell .atelier-policies > div { padding: 26px; }
+.storefront-shell .atelier-review-grid blockquote { padding: 30px; }
+.storefront-shell .atelier-gifts { background: transparent; }
+.storefront-shell .atelier-signoff { border-color: #e0cbb455; }
+.storefront-shell .atelier-signoff > span { color: #b9a080; opacity: .55; }
+.storefront-shell :is(.atelier-button,.atelier-purchase button[class*="bg-[#C8692F]"],.atelier-purchase a[class*="bg-[#C8692F]"]) { background: var(--glass-ink); border-color: var(--glass-ink); color: #fffaf3; border-radius: 999px; }
+.storefront-shell .atelier-button:hover { background: #65452e; }
+.storefront-shell .atelier-catalog-photo { border-color: #ffffffb3; border-radius: 22px; overflow: hidden; box-shadow: var(--glass-shadow); }
+body:has(.storefront-shell) :is(.product-quick-panel,.atelier-modal) { background: linear-gradient(140deg,#fffaf2d9,#f8e9e0bd); border: 1px solid white; box-shadow: inset 0 1px 0 white, 0 28px 80px #49332633; backdrop-filter: blur(28px); }
+body:has(.storefront-shell) :is(.product-quick-gallery,.product-quick-buy) { background: #ffffff35; }
+.storefront-shell :is(input:not([type=checkbox]):not([type=radio]),textarea,select) { background-color: #fffdf78c; border-color: #c9b59e88; }
+.storefront-shell :is(input,textarea,select):focus-visible { outline-offset: 3px; }
+.storefront-shell .liquid-option { background: #fffaf580; box-shadow: inset 0 1px 0 #ffffffa3; }
+.storefront-shell .store-header {
+  background: linear-gradient(110deg,#ffffff8c,#fff9f56b 55%,#f9eae35c);
+  border: 1px solid #ffffffb3;
+  border-top: 0;
+  border-radius: 0 0 26px 26px;
+  backdrop-filter: blur(28px) saturate(1.6);
+  box-shadow: inset 0 -1px 0 #ffffff99, 0 8px 28px -18px #76504433;
+}
+.store-header::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(115deg,#ffffff52,transparent 32%,#ffffff14 67%,#ffffff47); pointer-events: none; }
+.store-header > div { position: relative; }
+.storefront-shell .glass-control { background: #ffffff47; border: 1px solid #ffffffb3; box-shadow: inset 0 1px 0 #ffffffb3, 0 4px 12px #8b68550a; border-radius: 999px; }
+.storefront-shell .glass-control:hover { background: #ffffff99; }
+.storefront-shell #store-mobile-menu { background: linear-gradient(130deg,#fffaf5e6,#f7e7e0e0); border-color: #ffffffa6; border-radius: 0 0 26px 26px; }
+.storefront-shell .mobile-store-nav { background: linear-gradient(110deg,#ffffff94,#fff7ee80); border-color: #ffffffb3; box-shadow: inset 0 1px 0 #ffffffb3, 0 -8px 28px -16px #85644c24; backdrop-filter: blur(28px) saturate(1.5); }
+.storefront-shell .mobile-store-nav > a[aria-current=page] { background: #ffffff73; border: 1px solid #ffffffb3; box-shadow: inset 0 1px 0 white; color: var(--glass-ink); }
+.storefront-shell .store-footer { background: linear-gradient(140deg,#ffffff55,#f1dcd040); color: var(--glass-muted); border-color: #ffffffb3; box-shadow: inset 0 1px 0 #ffffffb3; backdrop-filter: blur(22px); }
+.store-footer :is(h4,.font-serif) { color: var(--glass-ink); }
+.store-footer :is(p,ul,.space-y-2,.text-xs) { color: var(--glass-muted); }
+.store-footer [class*="border-b"] { border-color: #d4bea055; }
+.store-footer :is(.footer-location,.footer-payment) { color: #7b644c; background: #ffffff4d; border-color: #ffffffb3; box-shadow: inset 0 1px 0 #ffffff80; }
+@media (max-width: 700px) {
+  .storefront-shell :is(.liquid-card,.craft-card,.atelier-category) { border-radius: 22px; backdrop-filter: blur(14px) saturate(1.25); }
+  .storefront-shell .atelier-category { padding: 8px 8px 16px; }
+  .storefront-shell .atelier-category-image { border-radius: 15px; }
+  .storefront-shell .atelier-category > :is(h3,.atelier-eyebrow) { margin-inline: 4px; }
+  .storefront-shell .atelier-category > .atelier-eyebrow { font-size: 8px; }
+  .storefront-shell .atelier-journey { gap: 16px; margin-block: 12px; min-height: 0; }
+  .storefront-shell .atelier-journey-copy { padding: 28px; }
+  .storefront-shell .atelier-policies { gap: 16px; }
+  .storefront-shell .atelier-policies > div { padding: 22px; }
+  .storefront-shell .store-header { border-radius: 0 0 20px 20px; }
+  .storefront-shell .craft-card { display: flex; flex-direction: column; }
+  .storefront-shell .craft-card-media { aspect-ratio: 1; flex-shrink: 0; transform: none; }
+  .storefront-shell .craft-card-media img { padding: 8px; transform: none; }
+  .storefront-shell .craft-quick-trigger { margin: 10px 10px 0; width: calc(100% - 20px); min-height: 44px; transform: none; opacity: 1; flex-shrink: 0; }
+  .storefront-shell .craft-card-content { position: relative; padding: 14px 12px; gap: 14px; }
+  .storefront-shell .craft-card-category { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10px; line-height: 1.7; }
+  .storefront-shell .craft-card-content h3 { font-size: 13px; line-height: 1.7; min-height: 5.1em; -webkit-line-clamp: 3; }
+  .storefront-shell .craft-card-price-row { margin-top: auto; padding-top: 12px; flex-shrink: 0; }
+  .storefront-shell .craft-card-price-row > button { min-width: 44px; min-height: 44px; flex-shrink: 0; }
+  .storefront-shell .catalog-type-filter > button { min-width: 0; min-height: 44px; padding: 6px; font-size: 11px; line-height: 1.5; text-wrap: balance; }
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .storefront-shell { --glass-surface: linear-gradient(135deg,#fffdf5f5,#faeee7f2); }
+  .storefront-shell .store-header { background: #fff9f1f2; }
+}

@@ -11,7 +11,7 @@ export function Footer() {
   const { locale, t } = useLanguage();
 
   return (
-    <footer className="bg-[#23180E] text-[#E8DED1] pt-16 pb-12 border-t border-[#3A2A1A] mt-20">
+    <footer className="store-footer bg-[#23180E] text-[#E8DED1] pt-16 pb-12 border-t border-[#3A2A1A] mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-[#3A2A1A]">
           {/* Col 1: Brand story */}
@@ -33,7 +33,7 @@ export function Footer() {
                 ? "براند مصري للمشغولات اليدوية وفنون الكروشيه من دمياط. نصنع كل قطعة بشغف وعناية فائقة لنقدم لكم قطعاً تدوم وتبقى ذكرى دافئة في بيوتكم."
                 : "Handcrafted artisan crochet brand based in Damietta, Egypt. Every stitch is woven with passion and dedication to deliver timeless handmade pieces."}
             </p>
-            <div className="flex items-center gap-2 text-xs text-[#C8692F] font-semibold bg-[#2E2013] py-1.5 px-3 rounded-full w-fit border border-[#4A3522]">
+            <div className="flex items-center gap-2 text-xs text-[#C8692F] font-semibold footer-location bg-[#2E2013] py-1.5 px-3 rounded-full w-fit border border-[#4A3522]">
               <MapPin className="w-3.5 h-3.5 shrink-0" />
               <span>{t.badges.damiettaOnly}</span>
             </div>
@@ -83,9 +83,9 @@ export function Footer() {
                   {locale === "ar" ? "وسائل الدفع المعتمدة:" : "Accepted Payments:"}
                 </span>
                 <div className="flex flex-wrap gap-1.5 text-xs">
-                  <span className="bg-[#2E2013] border border-[#4A3522] px-2 py-0.5 rounded text-[#D9CBB7]">InstaPay</span>
-                  <span className="bg-[#2E2013] border border-[#4A3522] px-2 py-0.5 rounded text-[#D9CBB7]">Vodafone Cash</span>
-                  <span className="bg-[#2E2013] border border-[#4A3522] px-2 py-0.5 rounded text-[#D9CBB7]">
+                  <span className="footer-payment bg-[#2E2013] border border-[#4A3522] px-2 py-0.5 rounded text-[#D9CBB7]">InstaPay</span>
+                  <span className="footer-payment bg-[#2E2013] border border-[#4A3522] px-2 py-0.5 rounded text-[#D9CBB7]">Vodafone Cash</span>
+                  <span className="footer-payment bg-[#2E2013] border border-[#4A3522] px-2 py-0.5 rounded text-[#D9CBB7]">
                     {locale === "ar" ? "الدفع عند الاستلام" : "Cash on Delivery"}
                   </span>
                 </div>
