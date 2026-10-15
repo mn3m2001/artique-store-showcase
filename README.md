@@ -8,7 +8,7 @@ A bilingual Arabic/English storefront for handmade crochet products, featuring a
 
 ## About this repository
 
-This is a sanitized, runnable portfolio snapshot maintained by [mn3m2001](https://github.com/mn3m2001). It is a separate repository with fresh history; it is not the live store's deployment source or original commit history. Development used AI-assisted tooling.
+This is a sanitized, runnable portfolio snapshot maintained by [mn3m2001](https://github.com/mn3m2001). It is a separate repository with fresh history; it is not the live store's deployment source or original commit history.
 
 It includes application source, sample catalog data, automated tests, database schema, and public-facing screenshots. Production customer records, orders, payment proofs, credentials, environment files, database exports, and internal admin screenshots are excluded.
 
